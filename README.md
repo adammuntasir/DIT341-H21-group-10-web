@@ -61,12 +61,14 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
-2-5 sentences describing what the system does
-
+The system should be able to provide the farmers aid for which plants require which conditions, and how to maintain and grow them. The system should also
+be able to allow customers to search for and buy plants.
+​
 ### Pages
-
-* Home: 1-3 sentences describing what the page displays and what a user can do
-* Shopping cart: ...
+ 1. Home page: This is the page that should be representing our system, and also give the options for users to log in and search for plants.
+ 2. maintaining/farmers page: this page should allow the farmers to find plants and provide them with information on how to grow and take care of the plants.
+ 3. Shopping list: This page should allow the buyers to find, filter,select and see a sample of the plant that they want to buy
+ 4. Shopping cart: This page should be allow the users to see which products they have chosen to buy and their quantity, and finalise the purchase.
 
 ### Entity-Relationship (ER) Diagram
 

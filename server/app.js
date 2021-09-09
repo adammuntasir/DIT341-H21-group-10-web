@@ -15,6 +15,9 @@ var userController = require('./users/User');
 // plantsController
 var plantsController = require('./controllers/plants');
 
+// gardensController
+var gardensController = require('./controllers/gardens');
+
 // Connect to MongoDB
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }, function (err) {
     if (err) {
@@ -43,6 +46,7 @@ app.get('/api', function (req, res) {
 
 app.use(userController);
 app.use(plantsController);
+app.use(gardensController);
 
 
 // Catch all non-error handler for api (i.e., 404 Not Found)

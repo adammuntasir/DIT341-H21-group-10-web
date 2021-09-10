@@ -3,12 +3,12 @@ var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
     email: { type: String, unique: true, dropDups: true, required: true },
-    userName: { type: String, unique: true, dropDups: true, required: true },
+    name: { type: String, unique: true, dropDups: true, required: true },
     userType: { type: String, required: true },
     cCardNo: { type: Number },
-    cCardFirstName: { type: String },
-    cCardLastName: { type: String },
     cCardExpDate: { type: String },
+    FirstName: { type: String },
+    LastName: { type: String },
     streetNumber: { type: String },
     streetName: { type: String },
     city: { type: String }

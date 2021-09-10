@@ -44,7 +44,8 @@ app.get('/api', function (req, res) {
     res.json({ 'message': 'Welcome to your DIT341 backend ExpressJS project!' });
 });
 
-app.use(userController);
+
+app.use("/users", userController);
 app.use(plantsController);
 app.use(gardensController);
 

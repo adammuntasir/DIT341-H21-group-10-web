@@ -41,6 +41,37 @@ router.get('/', function (req, res, next) {
     })
 })
 
+//find one user by ID
+router.get('/:id', function (req, res, next) {
+    var userId = req.params.id;
+    User.findOne({ '_id': userId }, function (err, user) {
+        if (err) { return next(err); }
+        if (user === null) {
+            return res.status(404).json({ 'message': 'user not found' });
+        }
+        res.json(user);
+    });
+});
+
+//TODO: figure out why it removes the rest of the body
+//change username or password
+router.patch('/:id', function (req, res, next) {
+    User.replaceOne(
+        { '_id': req.params.id },
+        { 'name': req.body.name, 'password': req.body.password }, function (err, user) {
+            if (err) {
+                if (err.name === 'MongoError' && err.code === 11000) {
+                    return res.status(422).json({ 'message': 'Username already exists' });
+                }
+                return next(err);
+            }
+            else {
+                res.json({ user, 'msg': 'update successfull :)' });
+            }
+        });
+});
+
+
 
 
 module.exports = router;

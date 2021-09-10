@@ -6,5 +6,12 @@ var gardenSchema = new Schema({
     size: { type: Number},
     cordintelongitude: { type: Number},
     cordintelatitude: {type: Number}
+    //,
+
+    //Relation between garden and the user
+    // manage: {type: Schema.Types.ObjectId, ref: 'User'}
+    
+   
+
 });
 module.exports = mongoose.model('gardens', gardenSchema);

@@ -10,8 +10,10 @@ router.post('/', function (req, res, next) {
     var user = new User(req.body);
     user.save(function (err, user) {
         if (err) {
-            if (err.email === 'MongoError' && err.code === 11000) {
-                return res.status(422).json({ 'message': 'Username already exists' });
+            if (err.name === "MongoError" && err.code === 11000 && err.keyPattern.email === 1) {
+                return res.status(422).json({ "message": "email already exists" });
+            } else if (err.name === "MongoError" && err.code === 11000 && err.keyPattern.name === 1) {
+                return res.status(422).json({ "mesage": "user name already exists" });
             }
             return next(err);
         }
@@ -53,20 +55,19 @@ router.get('/:id', function (req, res, next) {
     });
 });
 
-//TODO: figure out why it removes the rest of the body
 //change username or password
 router.patch('/:id', function (req, res, next) {
-    User.replaceOne(
+    User.findOneAndUpdate(
         { '_id': req.params.id },
         { 'name': req.body.name, 'password': req.body.password }, function (err, user) {
             if (err) {
-                if (err.name === 'MongoError' && err.code === 11000) {
-                    return res.status(422).json({ 'message': 'Username already exists' });
-                }
-                return next(err);
+                // if (err.name === 'MongoError' && err.code === 11000) {
+                //     return res.status(422).json({ 'message': 'Username already exists' });
+                // }
+                return res.status(500).json({ err: err });
             }
             else {
-                res.json({ user, 'msg': 'update successfull :)' });
+                res.status(200).json({ user, 'msg': 'update successfull :)' });
             }
         });
 });

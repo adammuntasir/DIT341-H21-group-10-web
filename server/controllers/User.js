@@ -51,7 +51,7 @@ router.get('/:id', function (req, res, next) {
         if (user === null) {
             return res.status(404).json({ 'message': 'user not found' });
         }
-        res.json(user);
+        else { res.status(200).json(user); }
     });
 });
 

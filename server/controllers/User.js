@@ -26,7 +26,18 @@ router.delete('/', function (req, res, next) {
     User.remove({}, function (err) {
         if (err) {
             return next(err);
-        } else res.json({ "message": 'Deleted!' })
+        } else res.status(200).json({ "message": 'Deleted!' })
+    })
+})
+
+//delete user by ID
+router.delete('/:id', function (req, res, next) {
+    var userId = req.params.id;
+    User.findByIdAndDelete(userId, function (err, user) {
+        if (err) {
+            return next(err);
+        }
+        else res.status(200).json({ 'Deleted user': user });
     })
 })
 
@@ -38,7 +49,7 @@ router.get('/', function (req, res, next) {
             return next(err);
         }
         else {
-            res.json({ 'users': users });
+            res.status(200).json({ 'users': users });
         }
     })
 })

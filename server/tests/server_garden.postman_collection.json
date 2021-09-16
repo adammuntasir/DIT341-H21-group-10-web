@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "ef1b4a13-1eeb-4101-a557-9bdd5dae57e5",
+		"name": "server_garden",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "(a) POST /gardens",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct status code\", function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"correct garden\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"marconigatan\");\r",
+							"    pm.expect(jsonData.size).to.eql(5000);\r",
+							"    pm.expect(jsonData.cordintelongitude).to.eql(57.65198);\r",
+							"    pm.expect(jsonData.cordintelatitude).to.eql(11.91274);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"marconigatan\",\r\n    \"size\": 5000,\r\n    \"cordintelongitude\": 57.65198,\r\n    \"cordintelatitude\": 11.91274\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}/api/gardens",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"gardens"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(b) GET /gardens",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/gardens",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"gardens"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(d) GET /gaderns/id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct status code\", function(){\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/gardens/61433f8948b8b039206d738d",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"gardens",
+						"61433f8948b8b039206d738d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(c) DELETE /gardens",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct status code\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"All gardens deleted\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Deleted!\");\r",
+							"\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/api/gardens/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"gardens",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(g) DELETE /gardens/:id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct status code\", function(){\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/gardens/61433c4a48b8b039206d7312",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"gardens",
+						"61433c4a48b8b039206d7312"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(e) PUT /gardens/:id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct status code\", function(){\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/api/gardens/61433f8d48b8b039206d731f",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"gardens",
+						"61433f8d48b8b039206d731f"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

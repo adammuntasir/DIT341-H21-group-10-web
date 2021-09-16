@@ -20,13 +20,14 @@ router.post('/api/plants', function (req, res, next) {
 // (b) GET /plants
 
 router.get('/api/plants', function (req, res, next) {
+    console.log(req.query)
     Plant.find(function (err, plants) {
         if (err) {
             return next(err);
         }
         res.status(200).json({ 'plants': plants });
 
-    });
+    }).sort(req.query);
 
 });
 

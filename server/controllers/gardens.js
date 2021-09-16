@@ -4,7 +4,7 @@ var router = express.Router();
 
 var Garden = require('../models/garden');
 
-// POST /gardens
+// (a) POST /gardens
 
 router.post('/api/gardens',function(req, res , next){
     var garden = new Garden(req.body);
@@ -16,27 +16,27 @@ router.post('/api/gardens',function(req, res , next){
     });
 });
 
-// GET /gardens
+// (b) GET /gardens
 router.get('/api/gardens',function(req, res , next){
     Garden.find(function (err , gardens){
         if (err){
             return next (err);
         }
-         res.json({'gardens': gardens});
+         res.status(200).json({'gardens': gardens});
     });
 });
 
-//DELETE /gardens
-router.delete('/', function (req, res, next) {
+// (c) DELETE /gardens
+router.delete('/api/gardens/', function (req, res, next) {
     Garden.remove({}, function (err) {
         if (err) {
             return next(err);
-        } else res.json({ "message": 'Deleted!' })
+        } else res.status(200).json({ "message": 'Deleted!' })
     })
 });
 
 
-//GET /gaderns/:id
+//(d) GET /gaderns/:id
 router.get('/api/gardens/:id',function(req, res , next){
 var id = req.params.id;
 Garden.findById(req.params.id, function (err , garden){
@@ -51,7 +51,7 @@ Garden.findById(req.params.id, function (err , garden){
     });
 });
 
-//PUT /gardens/:id
+//(e) PUT /gardens/:id
 
 router.put('/api/gardens/:id',function(req, res , next){
     var id = req.params.id;
@@ -73,7 +73,7 @@ router.put('/api/gardens/:id',function(req, res , next){
     });
 
 
-     // PATCH /gardens/:id
+     // (f) PATCH /gardens/:id
 
      router.patch('/api/gardens/:id',function(req, res , next){
         var id = req.params.id;
@@ -95,7 +95,7 @@ router.put('/api/gardens/:id',function(req, res , next){
         });
 
 
-    // DELETE /gardens/:id
+    //(g) DELETE /gardens/:id
 
     router.delete('/api/gardens/:id',function(req, res , next){
         var id = req.params.id;

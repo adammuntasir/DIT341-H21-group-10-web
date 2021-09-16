@@ -4,6 +4,7 @@ var router = express.Router();
 
 var Plant = require('../models/plant');
 
+// (a) POST /plants
 router.post('/api/plants', function (req, res, next) {
     var plant = new Plant(req.body);
     plant.save(function (err, plant) {
@@ -16,18 +17,31 @@ router.post('/api/plants', function (req, res, next) {
 
 });
 
+// (b) GET /plants
+
 router.get('/api/plants', function (req, res, next) {
     Plant.find(function (err, plants) {
         if (err) {
             return next(err);
         }
-        res.json({ 'plants': plants });
+        res.status(200).json({ 'plants': plants });
 
     });
 
 });
 
-//Persist GET /plants/:id
+// (c) DELETE /plants
+router.delete('/api/plants', function (req, res, next) {
+    Plant.remove({}, function (err) {
+        if (err) {
+            return next(err);
+        } 
+        else res.status(200).json({ "message": 'Deleted!' })
+    })
+});
+
+
+// (d) GET /plants/:id
 router.get('/api/plants/:id', function (req, res, next) {
     var id = req.params.id;
     Plant.findById(req.params.id, function (err, plant) {
@@ -36,13 +50,14 @@ router.get('/api/plants/:id', function (req, res, next) {
         }
         if (plant == null) {
             return res.status(404).json(
-                { "message": "plant not found" });
+                { "message": "Plant not found" });
         }
         res.json(plant);
     });
 });
 
-// Persist PUT /plants/:id
+// (e) PUT /plants/:id
+
 router.put('/api/plants/:id', function (req, res, next) {
     var id = req.params.id;
     Plant.findById(id, function (err, plant) {
@@ -63,22 +78,8 @@ router.put('/api/plants/:id', function (req, res, next) {
     });
 });
 
-//Persist DELETE /plants/:id
-router.delete('/api/plants/:id', function (req, res, next) {
-    var id = req.params.id;
-    Plant.findOneAndDelete({ _id: id }, function (err, plant) {
-        if (err) {
-            return next(err);
-        }
-        if (plant == null) {
-            return res.status(404).json(
-                { "message": "Plant not found" });
-        }
-        res.json(plant);
-    });
-});
 
-//Persist PATCH /plants/:id
+// (f) PATCH /plants/:id
 router.patch('/api/plants/:id', function (req, res, next) {
     var id = req.params.id;
     Plant.findById(id, function (err, plant) {
@@ -95,6 +96,21 @@ router.patch('/api/plants/:id', function (req, res, next) {
         plant.season = (req.body.season || plant.season);
         plant.price = (req.body.price || plant.price);
         plant.save();
+        res.json(plant);
+    });
+});
+
+// (g) DELETE /plants/:id
+router.delete('/api/plants/:id', function (req, res, next) {
+    var id = req.params.id;
+    Plant.findOneAndDelete({ _id: id }, function (err, plant) {
+        if (err) {
+            return next(err);
+        }
+        if (plant == null) {
+            return res.status(404).json(
+                { "message": "Plant not found" });
+        }
         res.json(plant);
     });
 });

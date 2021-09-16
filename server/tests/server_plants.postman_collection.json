@@ -1,0 +1,283 @@
+{
+	"info": {
+		"_postman_id": "9c0e0383-5e72-4be9-bdfb-887d1df57df6",
+		"name": "server plants",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Plants",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct status code\", function() {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"correct plant\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"cucumber\");\r",
+							"    pm.expect(jsonData.type).to.eql(\"fruits\");\r",
+							"    pm.expect(jsonData.color).to.eql(\"green\");\r",
+							"    pm.expect(jsonData.season).to.eql(\"summer\");\r",
+							"    pm.expect(jsonData.price).to.eql(19);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"cucumber\",\r\n    \"type\":\"fruits\",\r\n    \"color\":\"green\",\r\n    \"season\":\"summer\",\r\n    \"price\":19\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}/api/plants",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"plants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "plants all",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/plants",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"plants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "plant all",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"All plants deleted\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Deleted!\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/plants",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"plants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "plants by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct status code\", function() {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"no plant with this id\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Plant not found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/plants/61433fb37122284094368fb7",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"plants",
+						"61433fb37122284094368fb7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "plants by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct status code\", function() {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"no plant with this id\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Plant not found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/plants/613be0dcdc44ae00047e2b27",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"plants",
+						"613be0dcdc44ae00047e2b27"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "plants by id Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct status code\", function() {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"no plant with this id\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Plant not found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/plants/613be0dcdc44ae00047e2b27",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"plants",
+						"613be0dcdc44ae00047e2b27"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "plant by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct status code\", function() {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/plants/613be0dcdc44ae00047e2b27",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"plants",
+						"613be0dcdc44ae00047e2b27"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

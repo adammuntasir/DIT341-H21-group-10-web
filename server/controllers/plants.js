@@ -53,7 +53,7 @@ router.get('/api/plants/:id', function (req, res, next) {
             return res.status(404).json(
                 { "message": "Plant not found" });
         }
-        res.json(plant);
+        res.status(200).json(plant);
     });
 });
 
@@ -75,7 +75,7 @@ router.put('/api/plants/:id', function (req, res, next) {
         plant.season = req.body.season;
         plant.price = req.body.price;
         plant.save();
-        res.json(plant);
+        res.status(200).json(plant);
     });
 });
 
@@ -97,7 +97,7 @@ router.patch('/api/plants/:id', function (req, res, next) {
         plant.season = (req.body.season || plant.season);
         plant.price = (req.body.price || plant.price);
         plant.save();
-        res.json(plant);
+        res.status(200).json(plant);
     });
 });
 
@@ -112,7 +112,7 @@ router.delete('/api/plants/:id', function (req, res, next) {
             return res.status(404).json(
                 { "message": "Plant not found" });
         }
-        res.json(plant);
+        res.status(200).json(plant);
     });
 });
 

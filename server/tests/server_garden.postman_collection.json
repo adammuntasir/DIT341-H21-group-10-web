@@ -157,51 +157,6 @@
 			"response": []
 		},
 		{
-			"name": "(c) DELETE /gardens",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"correct status code\", function(){\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"\r",
-							"pm.test(\"All gardens deleted\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.message).to.eql(\"Deleted!\");\r",
-							"\r",
-							"});\r",
-							"\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{host}}/api/gardens/",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"gardens",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "(d) GET /gaderns/id",
 			"event": [
 				{
@@ -249,7 +204,15 @@
 					"script": {
 						"exec": [
 							"pm.test(\"correct status code\", function(){\r",
-							"    pm.response.to.have.status(404);\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"correct garden\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"blidvadersgatan27\");\r",
+							"    pm.expect(jsonData.size).to.eql(30000);\r",
+							"    pm.expect(jsonData.cordintelongitude).to.eql( 58.877700);\r",
+							"    pm.expect(jsonData.cordintelatitude).to.eql( 12.557700);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -261,17 +224,22 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"marconigatan27\",\r\n    \"size\": 60000,\r\n    \"cordintelongitude\": 57.651986,\r\n    \"cordintelatitude\": 11.912743\r\n}"
+					"raw": "{\r\n    \"name\": \"blidvadersgatan27\",\r\n    \"size\": 30000,\r\n    \"cordintelongitude\": 58.877700,\r\n    \"cordintelatitude\": 12.557700\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
-					"raw": "{{host}}/api/gardens/{{garden_id1}}",
+					"raw": "{{host}}/api/gardens/{{garden_id2}}",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"api",
 						"gardens",
-						"{{garden_id1}}"
+						"{{garden_id2}}"
 					]
 				}
 			},
@@ -285,7 +253,13 @@
 					"script": {
 						"exec": [
 							"pm.test(\"correct status code\", function(){\r",
-							"    pm.response.to.have.status(404);\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"correct garden\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"blidvadersgatan30\");\r",
+							"    pm.expect(jsonData.size).to.eql(80000);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -295,15 +269,24 @@
 			"request": {
 				"method": "PATCH",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"blidvadersgatan30\",\r\n    \"size\": 80000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "{{host}}/api/gardens/6143bc267a425c521c356e60",
+					"raw": "{{host}}/api/gardens/{{garden_id2}}",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"api",
 						"gardens",
-						"6143bc267a425c521c356e60"
+						"{{garden_id2}}"
 					]
 				}
 			},
@@ -340,6 +323,51 @@
 						"api",
 						"gardens",
 						"{{garden_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(c) DELETE /gardens",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct status code\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"All gardens deleted\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Deleted!\");\r",
+							"\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/api/gardens/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"gardens",
+						""
 					]
 				}
 			},

@@ -105,7 +105,26 @@ router.delete("/api/gardens/:id", function (req, res, next) {
     res.status(200).json(garden);
   });
 });
+
+
+
+
 /*
+//  POST /gardens/:garden_id/plants
+
+//router.post("/api/gardens/garden_id/plants", function (req, res, next) {
+var garden = new Garden(req.body);
+  garden.save({ id })
+    .populate("has")
+    .exec(function (err, garden) {
+      if (err) {
+        return next(err);
+      }
+      res.status(200).json({ gardens: gardens });
+    });
+});
+
+
 //  GET /gardens/:garden_id/plants
 
 //router.get("/api/gardens/garden_id/plants", function (req, res, next) {
@@ -118,6 +137,33 @@ router.delete("/api/gardens/:id", function (req, res, next) {
       res.status(200).json({ gardens: gardens });
     });
 });
+
+// GET /gardens/:garden_id/plants/:plant_id
+//router.get("/api/gardens/:garden_id/plants/:plant_id", function (req, res, next) {
+  Garden.findOne({ id })
+    .populate("has")
+    .exec(function (err, garden) {
+      if (err) {
+        return next(err);
+      }
+      res.status(200).json({ gardens: gardens });
+    });
+});
+
+// DELETE /gardens/:garden_id/plants/:plant_id
+//router.delete("/api/gardens/:garden_id/plants/:plant_id", function (req, res, next) {
+  Garden.findOneAndDelete({ id })
+    .populate("has")
+    .exec(function (err, garden) {
+      if (err) {
+        return next(err);
+      }
+      res.status(200).json({ gardens: gardens });
+    });
+});
+
+
 */
+
 
 module.exports = router;

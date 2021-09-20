@@ -112,7 +112,19 @@ router.delete("/api/gardens/:id", function (req, res, next) {
 /*
 //  POST /gardens/:garden_id/plants
 
-//router.post("/api/gardens/garden_id/plants", function (req, res, next) {
+// for example:
+// plants in a garden(_id 1) contains these plants: [A, B]
+
+//router.post("/api/gardens/:garden_id/plants", function (req, res, next) {^
+// check if garden with id garden_id exists by using Garden.findById({garden_id})
+//      if yes, create a new plant
+//          create a new plant by calling new Plant(req.body)
+//          add the newly created plant to the plants list of the garden so that it becomems plants: [A, B, newPlant]
+//          save the plant to the database by calling .save()
+//          save the garden by calling garden.save()
+//          update the 'has' list in garden 
+//      if no, send item garden with id garden_id not found
+
 var garden = new Garden(req.body);
   garden.save({ id })
     .populate("has")

@@ -45,7 +45,7 @@ app.get('/api', function (req, res) {
 });
 
 
-app.use("/users", userController);
+app.use("/api/users", userController);
 app.use(plantsController);
 app.use(gardensController);
 

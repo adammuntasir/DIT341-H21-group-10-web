@@ -13,10 +13,15 @@ var userSchema = new Schema({
     streetNumber: { type: String },
     streetName: { type: String },
     city: { type: String },
-    // gardenID: {
-    //     type: Schema.types.ObectId,
-    //     ref: 'garden'
-    // }
+    plantsBought: [{
+        type: Schema.Types.ObjectId,
+        ref: "plant"
+    }],
+    gardensOwned: [{
+        type: Schema.Types.ObjectId,
+        ref: "garden"
+    }]
+
 });
 
 module.exports = mongoose.model('user', userSchema);

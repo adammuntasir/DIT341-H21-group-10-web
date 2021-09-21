@@ -15,7 +15,7 @@ router.post('/', function (req, res, next) {
             } else if (err.name === "MongoError" && err.code === 11000 && err.keyPattern.name === 1) {
                 return res.status(422).json({ "mesage": "user name already exists" });
             }
-            return next(err);
+            return next(err); //return status codes
         }
         else { res.status(201).json(user); }
     });
@@ -40,7 +40,6 @@ router.delete('/:id', function (req, res, next) {
         else res.status(200).json({ 'Deleted user': user });
     })
 })
-
 
 //get all users
 router.get('/', function (req, res, next) {
@@ -83,7 +82,16 @@ router.patch('/:id', function (req, res, next) {
         });
 });
 
-
-
+//add plant to user
+router.post('/gardens/:id', function (req, res, next) {
+    User.findOne({ 'name': req.body.name }, function (err, user) {
+        if (err) {
+            return next(err)
+        } else {
+            res.status(200).json({ user, 'msg': 'post successfull' });
+        }
+    }
+    ).populate('plantsBought');
+})
 
 module.exports = router;

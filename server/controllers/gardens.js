@@ -3,6 +3,7 @@ const { Schema } = require("mongoose");
 var router = express.Router();
 
 var Garden = require("../models/garden");
+const plant = require("../models/plant");
 var Plant = require("../models/plant");
 
 // (a) POST /gardens
@@ -124,6 +125,19 @@ router.post("/api/gardens/:garden_id/plants", function (req, res, next) {
       res.status(201).json(garden);
     });
   });
+});
+
+//  GET /gardens/:garden_id/plants
+router.get("/api/gardens/:garden_id/plants", function (req, res, next) {
+  var id = req.params.garden_id;
+  Garden.findById(id)
+    .populate({ path: "has", model: plant })
+    .exec(function (err, garden) {
+      if (err) {
+        return next(err);
+      }
+      res.status(200).json(garden.has);
+    });
 });
 
 module.exports = router;

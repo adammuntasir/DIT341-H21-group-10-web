@@ -3,6 +3,7 @@ const { Schema } = require("mongoose");
 var router = express.Router();
 
 var Garden = require("../models/garden");
+var Plant = require("../models/plant");
 
 // (a) POST /gardens
 
@@ -106,76 +107,23 @@ router.delete("/api/gardens/:id", function (req, res, next) {
   });
 });
 
-
-
-
-/*
-//  POST /gardens/:garden_id/plants
-
-// for example:
-// plants in a garden(_id 1) contains these plants: [A, B]
-
-//router.post("/api/gardens/:garden_id/plants", function (req, res, next) {^
-// check if garden with id garden_id exists by using Garden.findById({garden_id})
-//      if yes, create a new plant
-//          create a new plant by calling new Plant(req.body)
-//          add the newly created plant to the plants list of the garden so that it becomems plants: [A, B, newPlant]
-//          save the plant to the database by calling .save()
-//          save the garden by calling garden.save()
-//          update the 'has' list in garden 
-//      if no, send item garden with id garden_id not found
-
-var garden = new Garden(req.body);
-  garden.save({ id })
-    .populate("has")
-    .exec(function (err, garden) {
-      if (err) {
-        return next(err);
-      }
-      res.status(200).json({ gardens: gardens });
+//POST /gardens/:garden_id/plants
+router.post("/api/gardens/:garden_id/plants", function (req, res, next) {
+  var id = req.params.garden_id;
+  Garden.findById(id, function (err, garden) {
+    if (err) {
+      return next(err);
+    }
+    if (garden == null) {
+      return res.status(404).json({ garden_id: "Garden not found" });
+    }
+    var plant = new Plant(req.body);
+    plant.save(function (error, plant) {
+      garden.has.push(plant._id);
+      garden.save();
+      res.status(201).json(garden);
     });
+  });
 });
-
-
-//  GET /gardens/:garden_id/plants
-
-//router.get("/api/gardens/garden_id/plants", function (req, res, next) {
-  Garden.findOne({ id })
-    .populate("has")
-    .exec(function (err, garden) {
-      if (err) {
-        return next(err);
-      }
-      res.status(200).json({ gardens: gardens });
-    });
-});
-
-// GET /gardens/:garden_id/plants/:plant_id
-//router.get("/api/gardens/:garden_id/plants/:plant_id", function (req, res, next) {
-  Garden.findOne({ id })
-    .populate("has")
-    .exec(function (err, garden) {
-      if (err) {
-        return next(err);
-      }
-      res.status(200).json({ gardens: gardens });
-    });
-});
-
-// DELETE /gardens/:garden_id/plants/:plant_id
-//router.delete("/api/gardens/:garden_id/plants/:plant_id", function (req, res, next) {
-  Garden.findOneAndDelete({ id })
-    .populate("has")
-    .exec(function (err, garden) {
-      if (err) {
-        return next(err);
-      }
-      res.status(200).json({ gardens: gardens });
-    });
-});
-
-
-*/
-
 
 module.exports = router;

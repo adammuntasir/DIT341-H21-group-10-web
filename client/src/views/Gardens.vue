@@ -1,62 +1,55 @@
 <template>
     <div>
-      <p>All Gardens:</p>
+      <h1>List of Garden </h1>
       <div v-for="garden in gardens" v-bind:key="garden._id">
-      <p>The {{garden.name}} gardens has size {{garden.size}}</p>
+      <garden-item v-bind:garden="garden" v-on:del-garden="deleteGarden"/>
     </div>
     </div>
 </template>
 
 <script>
+import GardenItem from '../components/GardenItem.vue'
+import { Api } from '@/Api'
+
 export default {
   name: 'gardens',
+  components: {
+    'garden-item': GardenItem
+  },
+  mounted() {
+    console.log('Page is loaded!')
+    // load the garden from server
+    Api.get('/gardens')
+      .then(response => {
+        console.log(response)
+        this.gardens = response.data.gardens
+      })
+      .catch(error => {
+        this.gardens = []
+        console.log(error)
+        //  to do dispaly some error message istead of logging to consle
+      })
+      .then(() => {
+        console.log('this run every time after sucess or error.')
+      })
+  },
+  methods: {
+    deleteGarden(id) {
+      console.log(`Delete garden with id ${id}`)
+      Api.delete(`/gardens/${id}`)
+        .then(response => {
+          const index = this.gardens.findIndex(garden => garden._id === id)
+          this.gardens.splice(index, 1)
+        })
+        // TODO: catch error
+    }
+  },
   data() {
     return {
-      gardens: [
-        {
-          manageBy: [],
-          has: [],
-          _id: '6143dd141b3c150a287768f0',
-          name: 'blidvadersgatan17',
-          size: 25000,
-          cordintelongitude: 58.877691,
-          cordintelatitude: 12.557681,
-          __v: 0
-        },
-        {
-          manageBy: [],
-          has: [],
-          _id: '6148de699716a15e48c9a697',
-          name: 'blidvadersgatan17',
-          size: 25000,
-          cordintelongitude: 58.877691,
-          cordintelatitude: 12.557681,
-          __v: 0
-        },
-        {
-          manageBy: [],
-          has: [],
-          _id: '6148e0599716a15e48c9a6ab',
-          name: 'marconigatan27',
-          size: 50000,
-          cordintelongitude: 57.651986,
-          cordintelatitude: 11.912743,
-          __v: 0
-        },
-        {
-          manageBy: [],
-          has: [],
-          _id: '6148e0609716a15e48c9a6ad',
-          name: 'marconigatan27',
-          size: 50000,
-          cordintelongitude: 57.651986,
-          cordintelatitude: 11.912743,
-          __v: 0
-        }
-
-      ]
+      gardens: []
     }
   }
+
 }
 </script>
 

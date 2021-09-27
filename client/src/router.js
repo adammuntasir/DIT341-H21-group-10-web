@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import ShoppingList from './views/ShoppingList.vue'
+import Garden from './views/Garden.vue'
 import Gardens from './views/Gardens.vue'
+import ShoppingList from './views/ShoppingList.vue'
 
 Vue.use(Router)
 
@@ -16,8 +17,13 @@ export default new Router({
       component: Home
     },
     {
-      path: '/gardens',
-      name: 'gardens',
+      path: '/gardens/:id',
+      name: 'garden',
+      component: Garden
+    },
+    {
+      path: '/gardens/',
+      name: '/gardens',
       component: Gardens
     },
     {
@@ -25,7 +31,5 @@ export default new Router({
       name: 'shoppinglist',
       component: ShoppingList
     }
-
   ]
-}
-)
+})

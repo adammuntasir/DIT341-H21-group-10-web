@@ -1,10 +1,11 @@
 var express = require("express");
 const { Schema } = require("mongoose");
+const garden = require("../models/garden");
 var router = express.Router();
 
 var Garden = require("../models/garden");
-const plant = require("../models/plant");
 var Plant = require("../models/plant");
+//const plant = require("../models/plant");
 
 // (a) POST /gardens
 
@@ -138,6 +139,18 @@ router.get("/api/gardens/:garden_id/plants", function (req, res, next) {
       }
       res.status(200).json(garden.has);
     });
+});
+
+//  GET /gardens/:garden_id/plants/:plant_id
+router.get("/api/gardens/:garden_id/plants", function (req, res, next) {
+  var id = req.params.garden_id;
+  Garden.findById(id).populate("has");
+  var id = req.params.plant_id;
+  Plant.findById(id);
+  if (err) {
+    return next(err);
+  }
+  res.status(200).json(id);
 });
 
 module.exports = router;

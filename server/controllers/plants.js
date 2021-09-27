@@ -9,7 +9,7 @@ router.post("/api/plants", function (req, res, next) {
   var plant = new Plant(req.body);
   plant.save(function (err, plant) {
     if (err) {
-      return next(err);
+      return res.status.json({ message: "Bad request" });
     } else res.status(201).json(plant);
   });
 });
@@ -17,41 +17,23 @@ router.post("/api/plants", function (req, res, next) {
 // (b) GET /plants
 
 router.get("/api/plants", function (req, res, next) {
-  console.log(req.query);
   var query = req.query.season;
-  if (query) {
-    if (
-      query === "desc" ||
-      query === "asc" ||
-      query === "1" ||
-      query === "-1"
-    ) {
-      Plant.find({})
-        .sort({ season: query })
-        .exec(function (err, plants) {
-          if (err) {
-            return next(err);
-          }
-          res.status(200).json({ plants: plants });
-        });
-    } else {
-      next({ message: "wrong query parameters" });
-    }
-  } else {
-    Plant.find(function (err, plants) {
+
+  Plant.find({})
+    .sort({ season: query })
+    .exec(function (err, plants) {
       if (err) {
-        return next(err);
+        return res.status(404).json({ message: "Plant not found" });
       }
       res.status(200).json({ plants: plants });
     });
-  }
 });
 
 // (c) DELETE /plants
 router.delete("/api/plants", function (req, res, next) {
   Plant.remove({}, function (err) {
     if (err) {
-      return next(err);
+      return res.status(404).json({ message: "Plant not found" });
     } else res.status(200).json({ message: "Deleted!" });
   });
 });
@@ -61,7 +43,7 @@ router.get("/api/plants/:id", function (req, res, next) {
   var id = req.params.id;
   Plant.findById(req.params.id, function (err, plant) {
     if (err) {
-      return next(err);
+      return res.status(404).json({ message: "plant not found" });
     }
     if (plant == null) {
       return res.status(404).json({ message: "Plant not found" });
@@ -76,7 +58,7 @@ router.put("/api/plants/:id", function (req, res, next) {
   var id = req.params.id;
   Plant.findById(id, function (err, plant) {
     if (err) {
-      return next(err);
+      return res.status(404).json({ message: "Plant not found" });
     }
     if (plant == null) {
       return res.status(404).json({ message: "Plant not found" });
@@ -96,7 +78,7 @@ router.patch("/api/plants/:id", function (req, res, next) {
   var id = req.params.id;
   Plant.findById(id, function (err, plant) {
     if (err) {
-      return next(err);
+      return res.status(404).json({ message: "Plant not found" });
     }
     if (plant == null) {
       return res.status(404).json({ message: "Plant not found" });
@@ -116,7 +98,7 @@ router.delete("/api/plants/:id", function (req, res, next) {
   var id = req.params.id;
   Plant.findOneAndDelete({ _id: id }, function (err, plant) {
     if (err) {
-      return next(err);
+      return res.status(404).json({ message: "Plant not found" });
     }
     if (plant == null) {
       return res.status(404).json({ message: "Plant not found" });

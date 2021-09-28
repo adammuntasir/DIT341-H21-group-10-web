@@ -179,4 +179,36 @@ router.get(
   }
 );
 
+//  DELETE /gardens/:garden_id/plants/:plant_id
+router.delete(
+  "/api/gardens/:garden_id/plants/:plant_id",
+  function (req, res, next) {
+    var garden_id = req.params.garden_id;
+    Garden.findById(garden_id, function (err, garden) {
+      if (err) {
+        return next(err);
+      }
+      if (garden == null) {
+        return res.status(404).json({ garden_id: "Garden not found" });
+      }
+      var plant_id = req.params.plant_id;
+      Plant.findOneAndDelete({ _id: plant_id }, function (err, plant) {
+        if (err) {
+          return next(err);
+        }
+        if (plant == null) {
+          return res
+            .status(404)
+            .json({ plant_id: "plant with given id not found" });
+        }
+
+        const index = garden.has.indexOf(plant._id);
+        garden.has.splice(index, 1);
+        garden.save();
+        res.status(200).json(plant);
+      });
+    });
+  }
+);
+
 module.exports = router;

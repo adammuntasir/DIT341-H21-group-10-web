@@ -13,7 +13,7 @@ router.post("/api/gardens", function (req, res, next) {
   var garden = new Garden(req.body);
   garden.save(function (err, garden) {
     if (err) {
-      return next(err);
+      return res.status.json({ message: "Bad request" });
     }
     res.status(201).json(garden);
   });
@@ -23,7 +23,10 @@ router.post("/api/gardens", function (req, res, next) {
 router.get("/api/gardens", function (req, res, next) {
   Garden.find(function (err, gardens) {
     if (err) {
-      return next(err);
+      return res.status(500).json(err);
+    }
+    if (garden == null) {
+      return res.status(404).json({ message: "Garden not found" });
     }
     res.status(200).json({ gardens: gardens });
   });
@@ -33,7 +36,7 @@ router.get("/api/gardens", function (req, res, next) {
 router.delete("/api/gardens/", function (req, res, next) {
   Garden.remove({}, function (err) {
     if (err) {
-      return next(err);
+      return res.status(500).json(err);
     } else res.status(200).json({ message: "Deleted!" });
   });
 });
@@ -43,7 +46,7 @@ router.get("/api/gardens/:id", function (req, res, next) {
   var id = req.params.id;
   Garden.findById(req.params.id, function (err, garden) {
     if (err) {
-      return next(err);
+      return res.status(500).json(err);
     }
     if (garden == null) {
       return res.status(404).json({ message: "Garden not found" });
@@ -58,7 +61,7 @@ router.put("/api/gardens/:id", function (req, res, next) {
   var id = req.params.id;
   Garden.findById(id, function (err, garden) {
     if (err) {
-      return next(err);
+      return res.status(500).json(err);
     }
     if (garden == null) {
       return res.status(404).json({ message: "Garden not found" });
@@ -100,7 +103,7 @@ router.delete("/api/gardens/:id", function (req, res, next) {
   var id = req.params.id;
   Garden.findOneAndDelete({ _id: id }, function (err, garden) {
     if (err) {
-      return next(err);
+      return res.status(500).json(err);
     }
     if (garden == null) {
       return res.status(404).json({ message: "Garden not found" });
@@ -132,25 +135,48 @@ router.post("/api/gardens/:garden_id/plants", function (req, res, next) {
 router.get("/api/gardens/:garden_id/plants", function (req, res, next) {
   var id = req.params.garden_id;
   Garden.findById(id)
-    .populate({ path: "has", model: plant })
+    .populate({ path: "has", model: Plant })
     .exec(function (err, garden) {
       if (err) {
         return next(err);
       }
-      res.status(200).json(garden.has);
+      if (garden == null) {
+        return res.status(404).json({ garden_id: "Garden not found" });
+      }
+
+      res.status(200).json(garden);
     });
 });
 
 //  GET /gardens/:garden_id/plants/:plant_id
-router.get("/api/gardens/:garden_id/plants", function (req, res, next) {
-  var id = req.params.garden_id;
-  Garden.findById(id).populate("has");
-  var id = req.params.plant_id;
-  Plant.findById(id);
-  if (err) {
-    return next(err);
+router.get(
+  "/api/gardens/:garden_id/plants/:plant_id",
+  function (req, res, next) {
+    var garden_id = req.params.garden_id;
+    Garden.findById(garden_id, function (err, garden) {
+      if (err) {
+        return next(err);
+      }
+      if (garden == null) {
+        return res.status(404).json({ garden_id: "Garden not found" });
+      }
+      var plant_id = req.params.plant_id;
+      Plant.findById(plant_id, function (err, plant) {
+        if (err) {
+          return next(err);
+        }
+        if (plant == null) {
+          return res.status(404).json({ message: "Plant not found" });
+        }
+        // check if plant with garden_id was found or not
+        // if not send 404
+        // if yes, now find the plant with given plant_id
+        // if the plant was not found send 404
+        garden.has.includes(plant_id);
+        res.status(200).json(plant);
+      });
+    });
   }
-  res.status(200).json(id);
-});
+);
 
 module.exports = router;

@@ -1,10 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import WelcomePage from './views/WelcomePage.vue'
+import SignUp from './views/SignUp'
+import SignIn from './views/SignIn'
+import MyProfile from './views/MyProfile.vue'
 import Garden from './views/Garden.vue'
 import Gardens from './views/Gardens.vue'
 import ShoppingList from './views/ShoppingList.vue'
-import About from './views/About.vue'
+import Profile from './views/Profile'
 
 Vue.use(Router)
 
@@ -18,10 +22,27 @@ export default new Router({
       component: Home
     },
     {
-      path: 'about',
-      name: 'about',
-      component: About
+      path: '/welcomePage',
+      name: 'welocomePage',
+      component: WelcomePage
     },
+
+    {
+      path: '/sign-up',
+      name: 'signUp',
+      component: SignUp
+    },
+    {
+      path: '/sign-in',
+      name: 'signIn',
+      component: SignIn
+    },
+    {
+      path: '/my-profile',
+      name: 'myProfile',
+      component: MyProfile
+    },
+
     {
       path: '/gardens/:id',
       name: 'garden',
@@ -36,6 +57,11 @@ export default new Router({
       path: '/shoppinglist',
       name: 'shoppinglist',
       component: ShoppingList
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: Profile
     }
   ]
 })

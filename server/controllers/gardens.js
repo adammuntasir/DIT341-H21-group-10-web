@@ -68,9 +68,7 @@ router.put("/api/gardens/:id", function (req, res, next) {
     }
     garden.name = req.body.name;
     garden.size = req.body.size;
-    garden.cordintelatitude = req.body.cordintelatitude;
-    garden.cordintelongitude = req.body.cordintelongitude;
-    garden.save();
+    garden.location = req.body.location;
     res.status(200).json(garden);
   });
 });
@@ -88,10 +86,7 @@ router.patch("/api/gardens/:id", function (req, res, next) {
     }
     garden.name = req.body.name || garden.name;
     garden.size = req.body.size || garden.size;
-    garden.cordintelatitude =
-      req.body.cordintelatitude || garden.cordintelatitude;
-    garden.cordintelongitude =
-      req.body.cordintelongitude || garden.cordintelongitude;
+    garden.location = req.body.location || garden.location;
     garden.save();
     res.status(200).json(garden);
   });

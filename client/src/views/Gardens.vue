@@ -7,6 +7,11 @@
     </div> -->
     <b-container fluid="md" class="myContainer" >
       <b-row>
+        <b-col cols="3" offset="1" offset-md="2">
+           <b-form-input v-model="text" placeholder="Which plant do you need"></b-form-input>
+        </b-col>
+      </b-row>
+      <b-row>
         <b-col v-for="garden in gardens" v-bind:key="garden._id" cols="12" sm="6" md="4">
             <garden-item v-bind:garden="garden" v-on:del-garden="deleteGarden"/>
         </b-col>
@@ -53,7 +58,8 @@ export default {
   },
   data() {
     return {
-      gardens: []
+      gardens: [],
+      text: ''
     }
   }
 

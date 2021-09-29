@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+    .garden-image {
+        width: 150px;
+        height: 150px;
+    }
+
+    .garden-info {
+        font-size: small;
+    }
+
+    .background-rec {
+        padding: 5px;
+        border: 5px solid greenyellow;
+        margin: 0;
+        color: red;
+        width: 150px;
+    }
+
+    h1 {
+        color: black;
+    }
+</style>
+
+<head>
+</head>
+
+<body>
+
+    <div class='background-rec'>
+        <div id="gardenItem">
+            <div class='garden-item'>
+
+                <div class='garden-image'>
+                    <img class='garden-image' v-bind:src='image' v-bind:alt='altText'>
+                </div>
+                <div class='garden-info'>
+                    <h1>{{name}}</h1>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var gardenItem = new Vue({
+        el: '#gardenItem',
+        data: {
+            name: 'somegarden',
+            image: './garden2.jpg',
+            altText: 'alternative discription to the image in case it is missing'
+        }
+    });
+</script>
+
+
+</html>

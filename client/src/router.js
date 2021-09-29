@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Garden from './views/Garden.vue'
 import Gardens from './views/Gardens.vue'
 import ShoppingList from './views/ShoppingList.vue'
+import About from './views/About.vue'
 
 Vue.use(Router)
 
@@ -15,6 +16,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: 'about',
+      name: 'about',
+      component: About
     },
     {
       path: '/gardens/:id',

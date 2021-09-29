@@ -1,10 +1,17 @@
 <template>
-    <div>
+    <!-- <div>
       <h1>List of Garden </h1>
       <div v-for="garden in gardens" v-bind:key="garden._id">
       <garden-item v-bind:garden="garden" v-on:del-garden="deleteGarden"/>
     </div>
-    </div>
+    </div> -->
+    <b-container fluid="md" class="myContainer" >
+      <b-row>
+        <b-col v-for="garden in gardens" v-bind:key="garden._id" cols="12" sm="6" md="4">
+            <garden-item v-bind:garden="garden" v-on:del-garden="deleteGarden"/>
+        </b-col>
+      </b-row>
+    </b-container>
 </template>
 
 <script>
@@ -53,6 +60,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+.myContainer {
+  background-color: aqua;
+  border: solid;
+}
 </style>

@@ -9,7 +9,7 @@ router.post("/api/plants", function (req, res, next) {
   var plant = new Plant(req.body);
   plant.save(function (err, plant) {
     if (err) {
-      return res.status.json({ message: "Bad request" });
+      return res.status(500).json({ message: "Bad request" });
     } else res.status(201).json(plant);
   });
 });

@@ -13,7 +13,7 @@ router.post("/api/gardens", function (req, res, next) {
   var garden = new Garden(req.body);
   garden.save(function (err, garden) {
     if (err) {
-      return res.status.json({ message: "Bad request" });
+      return res.status(500).json({ message: "Bad request" });
     }
     res.status(201).json(garden);
   });
@@ -117,7 +117,7 @@ router.post("/api/gardens/:garden_id/plants", function (req, res, next) {
   var id = req.params.garden_id;
   Garden.findById(id, function (err, garden) {
     if (err) {
-      return next(err);
+      return res.status(500).json(err);
     }
     if (garden == null) {
       return res.status(404).json({ garden_id: "Garden not found" });
@@ -138,7 +138,7 @@ router.get("/api/gardens/:garden_id/plants", function (req, res, next) {
     .populate({ path: "has", model: Plant })
     .exec(function (err, garden) {
       if (err) {
-        return next(err);
+        return res.status(500).json(err);
       }
       if (garden == null) {
         return res.status(404).json({ garden_id: "Garden not found" });

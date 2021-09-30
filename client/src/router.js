@@ -9,6 +9,7 @@ import Garden from './views/Garden.vue'
 import Gardens from './views/Gardens.vue'
 import ShoppingList from './views/ShoppingList.vue'
 import Profile from './views/Profile'
+import User from './views/User.vue'
 
 Vue.use(Router)
 
@@ -62,6 +63,11 @@ export default new Router({
       path: '/profile',
       name: 'profile',
       component: Profile
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: User
     }
   ]
 })

@@ -63,7 +63,33 @@ export default {
         })
         // TODO: catch error
     }
-
+    /* deleteGardens {
+      console.log(`Delete gardens`)
+      Api.delete(gardens)
+        .then(response => {
+          const  = this.gardens.remove()
+          this.gardens = response.data.gardens
+        })
+        // TODO: catch error
+    },
+    getGardens(id){
+      console.log(`get garden with id ${id}`)
+      Api.get(`/gardens/${id}`)
+      .then(response => {
+        const index = this.gardens.findIndex(garden => garden._id === id)
+        console.log(response)
+        this.gardens = response.data.garden._id
+      })
+      .catch(error => {
+        this.gardens = []
+        console.log(error)
+        //  to do dispaly some error message istead of logging to consle
+      })
+      .then(() => {
+        console.log('this run every time after sucess or error.')
+      })
+      },
+     */
   },
   data() {
     return {

@@ -23,10 +23,9 @@
 							"\r",
 							"pm.test(\"correct garden\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.name).to.eql(\"marconigatan27\");\r",
+							"    pm.expect(jsonData.name).to.eql(\"garden A\");\r",
 							"    pm.expect(jsonData.size).to.eql(50000);\r",
-							"    pm.expect(jsonData.cordintelongitude).to.eql(57.651986);\r",
-							"    pm.expect(jsonData.cordintelatitude).to.eql(11.912743);\r",
+							"    pm.expect(jsonData.location).to.eql(\"Nordstan\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -49,7 +48,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"marconigatan27\",\r\n    \"size\": 50000,\r\n    \"cordintelongitude\": 57.651986,\r\n    \"cordintelatitude\": 11.912743\r\n}"
+					"raw": "{\r\n    \"name\": \"garden A\",\r\n    \"size\": 50000,\r\n    \"location\": \"Nordstan\"\r\n    \r\n}"
 				},
 				"url": {
 					"raw": "{{host}}/api/gardens",
@@ -82,10 +81,9 @@
 							"\r",
 							"pm.test(\"correct garden\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.name).to.eql(\"blidvadersgatan17\");\r",
-							"    pm.expect(jsonData.size).to.eql(25000);\r",
-							"    pm.expect(jsonData.cordintelongitude).to.eql( 58.877691);\r",
-							"    pm.expect(jsonData.cordintelatitude).to.eql( 12.557681);\r",
+							"    pm.expect(jsonData.name).to.eql(\"garden B\");\r",
+							"    pm.expect(jsonData.size).to.eql(20000);\r",
+							"    pm.expect(jsonData.location).to.eql( \"Stenpiren\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -97,7 +95,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"blidvadersgatan17\",\r\n    \"size\": 25000,\r\n    \"cordintelongitude\": 58.877691,\r\n    \"cordintelatitude\": 12.557681\r\n}",
+					"raw": "{\r\n     \"name\": \"garden B\",\r\n     \"size\": 20000,\r\n     \"location\": \"Stenpiren\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -112,6 +110,61 @@
 					"path": [
 						"api",
 						"gardens"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "//POST /gardens/:garden_id/plants",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var plantId = jsonData.has[0];\r",
+							"pm.environment.set(\"plant_id3\",plantId);\r",
+							"var getPlantId = pm.variables.get(\"plant_id3\");\r",
+							"\r",
+							"\r",
+							"pm.test(\"correct status code\", function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"correct garden\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"garden A\");\r",
+							"    pm.expect(jsonData.size).to.eql(50000);\r",
+							"    pm.expect(jsonData.location).to.eql(\"Nordstan\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"name\":\"Tomato\",\r\n    \"type\":\"vegtable\",\r\n    \"color\":\"red\",\r\n    \"season\":\"summer\",\r\n    \"price\":20\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/gardens/{{garden_id1}}/plants",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"gardens",
+						"{{garden_id1}}",
+						"plants"
 					]
 				}
 			},
@@ -157,6 +210,87 @@
 			"response": []
 		},
 		{
+			"name": "GET /gardens/:garden_id/plants",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/gardens/{{garden_id1}}/plants",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"gardens",
+						"{{garden_id1}}",
+						"plants"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /gardens/:garden_id/plants/:plant_id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/gardens/{{garden_id1}}/plants/{{plant_id3}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"gardens",
+						"{{garden_id1}}",
+						"plants",
+						"{{plant_id3}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "(d) GET /gaderns/id",
 			"event": [
 				{
@@ -169,10 +303,9 @@
 							"\r",
 							"pm.test(\"correct garden\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.name).to.eql(\"marconigatan27\");\r",
+							"    pm.expect(jsonData.name).to.eql(\"garden A\");\r",
 							"    pm.expect(jsonData.size).to.eql(50000);\r",
-							"    pm.expect(jsonData.cordintelongitude).to.eql(57.651986);\r",
-							"    pm.expect(jsonData.cordintelatitude).to.eql(11.912743);\r",
+							"    pm.expect(jsonData.location).to.eql(\"Nordstan\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -209,10 +342,9 @@
 							"\r",
 							"pm.test(\"correct garden\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.name).to.eql(\"blidvadersgatan27\");\r",
-							"    pm.expect(jsonData.size).to.eql(30000);\r",
-							"    pm.expect(jsonData.cordintelongitude).to.eql( 58.877700);\r",
-							"    pm.expect(jsonData.cordintelatitude).to.eql( 12.557700);\r",
+							"    pm.expect(jsonData.name).to.eql(\"garden y\");\r",
+							"    pm.expect(jsonData.size).to.eql(50000);\r",
+							"    pm.expect(jsonData.location).to.eql( \"Nordstan\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -224,7 +356,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"blidvadersgatan27\",\r\n    \"size\": 30000,\r\n    \"cordintelongitude\": 58.877700,\r\n    \"cordintelatitude\": 12.557700\r\n}",
+					"raw": "{\r\n    \"name\": \"garden y\",\r\n    \"size\": 50000,\r\n    \"location\": \"Nordstan\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -258,7 +390,7 @@
 							"\r",
 							"pm.test(\"correct garden\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.name).to.eql(\"blidvadersgatan30\");\r",
+							"    pm.expect(jsonData.name).to.eql(\"garden z\");\r",
 							"    pm.expect(jsonData.size).to.eql(80000);\r",
 							"});"
 						],
@@ -271,7 +403,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"blidvadersgatan30\",\r\n    \"size\": 80000\r\n}",
+					"raw": "{\r\n    \"name\": \"garden z\",\r\n    \"size\": 80000\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -287,6 +419,44 @@
 						"api",
 						"gardens",
 						"{{garden_id2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "//  DELETE /gardens/:garden_id/plants/:plant_id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct status code\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/api/gardens/{{garden_id1}}/plants/{{plant_id3}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"gardens",
+						"{{garden_id1}}",
+						"plants",
+						"{{plant_id3}}"
 					]
 				}
 			},

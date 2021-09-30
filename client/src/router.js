@@ -7,6 +7,7 @@ import SignIn from './views/SignIn'
 import MyProfile from './views/MyProfile.vue'
 import Garden from './views/Garden.vue'
 import Gardens from './views/Gardens.vue'
+import Plants from './views/Plants.vue'
 import ShoppingList from './views/ShoppingList.vue'
 import Profile from './views/Profile'
 import User from './views/User.vue'
@@ -68,6 +69,11 @@ export default new Router({
       path: '/users',
       name: 'users',
       component: User
+    },
+    {
+      path: '/plants',
+      name: 'plants',
+      component: Plants
     }
   ]
 })

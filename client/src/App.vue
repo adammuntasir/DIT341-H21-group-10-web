@@ -5,6 +5,7 @@
       <router-link to="/users">Users</router-link>|
       <router-link to="/gardens/id">Garden id</router-link>|
       <router-link to= "/gardens">Gardens</router-link>|
+      <router-link to="/Plants">Plants</router-link>|
       <router-link to="/ShoppingList">ShoppingList</router-link> |
       <router-link to="/About">About</router-link>
 

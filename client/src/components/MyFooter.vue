@@ -10,6 +10,6 @@ export default {
 
 <style scoped>
 h1{
-    color: red;
+    color: #00ff4c;
 }
 </style>

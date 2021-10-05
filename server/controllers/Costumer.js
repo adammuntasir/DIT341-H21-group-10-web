@@ -1,14 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-var User = require('../models/User');
+var Costumer = require('../models/Costumer');
 
 
-//Create user
+//Create costumer
 router.post('/', function (req, res, next) {
 
-    var user = new User(req.body);
-    user.save(function (err, user) {
+    var costumer = new Costumer(req.body);
+    costumer.save(function (err, costumer) {
         if (err) {
             if (err.name === "MongoError" && err.code === 11000 && err.keyPattern.email === 1) {
                 return res.status(422).json({ "message": "email already exists" });
@@ -17,59 +17,59 @@ router.post('/', function (req, res, next) {
             }
             return next(err); //return status codes
         }
-        else { res.status(201).json(user); }
+        else { res.status(201).json(costumer); }
     });
 });
 
-//delete all users
+//delete all costumers
 router.delete('/', function (req, res, next) {
-    User.remove({}, function (err) {
+    Costumer.remove({}, function (err) {
         if (err) {
             return next(err);
         } else res.status(200).json({ "message": 'Deleted!' })
     })
 })
 
-//delete user by ID
+//delete costumer by ID
 router.delete('/:id', function (req, res, next) {
-    var userId = req.params.id;
-    User.findByIdAndDelete(userId, function (err, user) {
+    var costumerId = req.params.id;
+    Costumer.findByIdAndDelete(costumerId, function (err, costumer) {
         if (err) {
             return next(err);
         }
-        else res.status(200).json({ 'Deleted user': user });
+        else res.status(200).json({ 'Deleted costumer': costumer });
     })
 })
 
-//get all users
+//get all costumers
 router.get('/', function (req, res, next) {
-    User.find(function (err, users) {
+    Costumer.find(function (err, costumers) {
         if (err) {
             return next(err);
         }
         else {
-            res.status(200).json({ 'users': users });
+            res.status(200).json({ 'costumers': costumers });
         }
     })
 })
 
-//find one user by ID
+//find one costumer by ID
 router.get('/:id', function (req, res, next) {
-    var userId = req.params.id;
-    User.findOne({ '_id': userId }, function (err, user) {
+    var costumerId = req.params.id;
+    Costumer.findOne({ '_id': costumerId }, function (err, costumer) {
         if (err) { return next(err); }
-        if (user === null) {
-            return res.status(404).json({ 'message': 'user not found' });
+        if (costumer === null) {
+            return res.status(404).json({ 'message': 'costumer not found' });
         }
-        else { res.status(200).json(user); }
+        else { res.status(200).json(costumer); }
     });
 });
 
 //change username or password
 router.patch('/:id', function (req, res, next) {
-    User.findOneAndUpdate(
+    Costumer.findOneAndUpdate(
         { '_id': req.params.id },
-        { 'name': req.body.name, 'password': req.body.password }, function (err, user) {
+        { 'name': req.body.name, 'password': req.body.password }, function (err, costumer) {
             if (err) {
                 // if (err.name === 'MongoError' && err.code === 11000) {
                 //     return res.status(422).json({ 'message': 'Username already exists' });
@@ -77,18 +77,18 @@ router.patch('/:id', function (req, res, next) {
                 return res.status(500).json({ err: err });
             }
             else {
-                res.status(200).json({ user, 'msg': 'update successfull :)' });
+                res.status(200).json({ costumer, 'msg': 'update successfull :)' });
             }
         });
 });
 
-//add plant to user
+//add plant to costumer
 router.post('/gardens/:id', function (req, res, next) {
-    User.findOne({ 'name': req.body.name }, function (err, user) {
+    Costumer.findOne({ 'name': req.body.name }, function (err, costumer) {
         if (err) {
             return next(err)
         } else {
-            res.status(200).json({ user, 'msg': 'post successfull' });
+            res.status(200).json({ costumer, 'msg': 'post successfull' });
         }
     }
     ).populate('plantsBought');

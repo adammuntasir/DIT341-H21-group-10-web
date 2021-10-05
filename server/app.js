@@ -10,7 +10,7 @@ var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevel
 var port = process.env.PORT || 3000;
 
 //userController
-var userController = require('./controllers/User');
+var costumerController = require('./controllers/Costumer');
 
 // plantsController
 var plantsController = require('./controllers/plants');
@@ -45,7 +45,7 @@ app.get('/api', function (req, res) {
 });
 
 
-app.use("/api/users", userController);
+app.use("/api/costumers", costumerController);
 app.use(plantsController);
 app.use(gardensController);
 

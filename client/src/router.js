@@ -11,6 +11,7 @@ import Plants from './views/Plants.vue'
 import ShoppingList from './views/ShoppingList.vue'
 import Profile from './views/Profile'
 import User from './views/User.vue'
+import Costumers from './views/Costumers.vue'
 
 Vue.use(Router)
 
@@ -69,6 +70,11 @@ export default new Router({
       path: '/users',
       name: 'users',
       component: User
+    },
+    {
+      path: '/costumers',
+      name: 'costumers',
+      component: Costumers
     },
     {
       path: '/plants',

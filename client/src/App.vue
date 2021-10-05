@@ -7,7 +7,8 @@
       <router-link to= "/gardens">Gardens</router-link>|
       <router-link to="/Plants">Plants</router-link>|
       <router-link to="/ShoppingList">ShoppingList</router-link> |
-      <router-link to="/About">About</router-link>
+      <router-link to="/About">About</router-link>|
+      <router-link to="/sign-up">SignUp</router-link>
 
     </div>
     <!-- Render the content of the current page view -->

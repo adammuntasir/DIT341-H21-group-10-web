@@ -19,4 +19,4 @@ var farmerSchema = new Schema({
 
 });
 
-module.exports = mongoose.model('user', farmerSchema);
+module.exports = mongoose.model("farmers", farmerSchema);

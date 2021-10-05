@@ -8,25 +8,37 @@
         <p>password</p>
         <input v-model="password" placeholder="password">
         <p>confirm password</p>
-        <input v-model="passwordConf" placeholder="password">
+        <input v-model="confirmPass" placeholder="confirm Password">
         <p>Are you a gardener or a costumer</p>
         <select v-model="selected">
-          <option disabled value="">Please select one</option>
+          <option disabled value="a">Please select one</option>
           <option>Costumer</option>
           <option>Gardener</option>
         </select>
+        <button @click="createUser"> Register</button>
     </div>
 </template>
 
 <script>
-// import { Api } from '@/Api'
+import { Api } from '@/Api'
 export default {
+  methods: {
+    createUser(email, username, type) {
+      email = this.email
+      username = this.username
+      type = this.type
+      console.log(email, this.username, this.password, this.type, this.confirmPass, this.selected)
+      Api.post('/users', { email: `${this.email}`, name: `${this.username}`, userType: 'test-2' })
+    }
+  },
   data() {
     return {
-      data: {
-        selected: 'costumer',
-        options: [{ text: 'costumer', value: 'costumer' }, { text: 'gardener', value: 'gardener' }]
-      }
+      email: '',
+      username: '',
+      password: '',
+      confirmPass: '',
+      type: '',
+      selected: ''
     }
   }
 }

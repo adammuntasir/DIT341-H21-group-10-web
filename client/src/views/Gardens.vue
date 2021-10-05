@@ -13,7 +13,7 @@
       </b-row>
       <b-row>
         <b-col v-for="garden in gardens" v-bind:key="garden._id" cols="12" sm="6" md="4">
-            <garden-item v-bind:garden="garden" v-on:del-garden="deleteGarden"/>
+            <garden-item v-bind:garden="garden" v-on:del-garden="deleteGardens"/>
         </b-col>
       </b-row>
     </b-container>
@@ -46,7 +46,24 @@ export default {
       })
   },
   methods: {
-    deleteGarden(id) {
+    getGardens(id) {
+      console.log(`get garden with id ${id}`)
+      Api.get(`/gardens/${id}`)
+        .then(response => {
+          const id = this.gardens.findId(garden => garden._id === id)
+          console.log(response)
+          this.gardens = response.data.garden._id
+        })
+        .catch(error => {
+          this.gardens = []
+          console.log(error)
+        //  to do dispaly some error message istead of logging to consle
+        })
+        .then(() => {
+          console.log('this run every time after sucess or error.')
+        })
+    },
+    deleteGardens(id) {
       console.log(`Delete garden with id ${id}`)
       Api.delete(`/gardens/${id}`)
         .then(response => {
@@ -63,37 +80,27 @@ export default {
         })
         // TODO: catch error
     }
-    /* deleteGardens {
-      console.log(`Delete gardens`)
-      Api.delete(gardens)
+    //,
+    /* deleteGardens()) {
+      console.log('Delete garden')
+      Api.delete('/gardens/')
         .then(response => {
-          const  = this.gardens.remove()
-          this.gardens = response.data.gardens
+          this.gardens.splice(0, [].length)
+        })
+        .catch(error => {
+          this.gardens = []
+          console.log(error)
+        //  to do dispaly some error message istead of logging to consle
+        })
+        .then(() => {
+          console.log('this run every time after sucess or error.')
         })
         // TODO: catch error
-    },
-    getGardens(id){
-      console.log(`get garden with id ${id}`)
-      Api.get(`/gardens/${id}`)
-      .then(response => {
-        const index = this.gardens.findIndex(garden => garden._id === id)
-        console.log(response)
-        this.gardens = response.data.garden._id
-      })
-      .catch(error => {
-        this.gardens = []
-        console.log(error)
-        //  to do dispaly some error message istead of logging to consle
-      })
-      .then(() => {
-        console.log('this run every time after sucess or error.')
-      })
-      },
-     */
+    } */
   },
   data() {
     return {
-      gardens: [],
+      plants: [],
       text: ''
     }
   }

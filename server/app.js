@@ -9,7 +9,7 @@ var history = require('connect-history-api-fallback');
 var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
 var port = process.env.PORT || 3000;
 
-//userController
+//CostumerController
 var costumerController = require('./controllers/Costumer');
 
 // plantsController
@@ -17,6 +17,8 @@ var plantsController = require('./controllers/plants');
 
 // gardensController
 var gardensController = require('./controllers/gardens');
+
+var farmerController = require('./controllers/farmers');
 
 // Connect to MongoDB
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }, function (err) {
@@ -48,6 +50,7 @@ app.get('/api', function (req, res) {
 app.use("/api/costumers", costumerController);
 app.use(plantsController);
 app.use(gardensController);
+app.use(farmerController);
 
 
 // Catch all non-error handler for api (i.e., 404 Not Found)

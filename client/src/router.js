@@ -12,6 +12,7 @@ import ShoppingList from './views/ShoppingList.vue'
 import Profile from './views/Profile'
 import User from './views/User.vue'
 import Costumers from './views/Costumers.vue'
+import About from './views/About.vue'
 
 Vue.use(Router)
 
@@ -80,6 +81,11 @@ export default new Router({
       path: '/plants',
       name: 'plants',
       component: Plants
+    },
+    {
+      path: '/About',
+      name: 'home',
+      component: About
     }
   ]
 })

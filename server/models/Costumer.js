@@ -18,4 +18,4 @@ var costumerSchema = new Schema({
     }]
 })
 
-module.exports = mongoose.model('farmer', costumerSchema);
+module.exports = mongoose.model('costumer', costumerSchema);

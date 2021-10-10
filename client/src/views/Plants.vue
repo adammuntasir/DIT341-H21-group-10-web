@@ -1,10 +1,10 @@
 <template>
     <b-container fluid="md" class="myContainer" >
-      <b-row>
+      <!-- <b-row>
         <b-col cols="3" offset="1" offset-md="2">
            <b-form-input v-model="text" placeholder="Which plant do you need"></b-form-input>
         </b-col>
-      </b-row>
+      </b-row> -->
       <b-row>
         <b-col v-for="plant in plants" v-bind:key="plant._id" cols="12" sm="6" md="4">
             <plant-item v-bind:plant="plant" v-on:del-plant="deletePlant"/>
@@ -49,6 +49,20 @@ export default {
         })
         // TODO: catch error
     }
+  },
+  postPlants() {
+    console.log('post plant')
+    Api.post('/plants/')
+      .then(response => {
+        this.plants.push(response.data)
+      })
+      .catch(error => {
+        console.log(error)
+        //  to do dispaly some error message istead of logging to consle
+      })
+      .then(() => {
+        console.log('this run every time after sucess or error.')
+      })
   },
   data() {
     return {

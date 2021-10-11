@@ -11,13 +11,13 @@
 import UserItem from '../components/UserItem.vue'
 import { Api } from '@/Api'
 export default {
-  name: 'users',
+  name: 'costumers',
   components: {
     'user-item': UserItem
   },
   mounted() {
     console.log('Page is loaded')
-    Api.get('/users').then(response => {
+    Api.get('/costumers').then(response => {
       console.log(response)
       this.users = response.data.users
     }).catch(error => {
@@ -27,8 +27,8 @@ export default {
   },
   methods: {
     deleteUser(id) {
-      console.log('Delete user with id', id)
-      Api.delete(`/users/${id}`)
+      console.log('Delete costumer with id', id)
+      Api.delete(`/costumers/${id}`)
         .then(response => {
           const index = this.users.findIndex(user => user._id === id)
           this.users.splice(index, 1)

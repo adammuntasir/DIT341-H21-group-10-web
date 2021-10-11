@@ -1,22 +1,31 @@
 <template>
-    <!-- <div>
+  <!-- <div>
       <h1>List of Garden </h1>
       <div v-for="garden in gardens" v-bind:key="garden._id">
       <garden-item v-bind:garden="garden" v-on:del-garden="deleteGarden"/>
     </div>
     </div> -->
-    <b-container fluid="md" class="myContainer" >
-      <b-row>
-        <b-col cols="3" offset="1" offset-md="2">
-           <b-form-input v-model="text" placeholder="Which plant do you need"></b-form-input>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col v-for="garden in gardens" v-bind:key="garden._id" cols="12" sm="6" md="4">
-            <garden-item v-bind:garden="garden" v-on:del-garden="deleteGardens"/>
-        </b-col>
-      </b-row>
-    </b-container>
+  <b-container fluid="md" class="myContainer">
+    <b-row>
+      <b-col cols="3" offset="1" offset-md="2">
+        <b-form-input
+          v-model="text"
+          placeholder="Which plant do you need"
+        ></b-form-input>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col
+        v-for="garden in gardens"
+        v-bind:key="garden._id"
+        cols="12"
+        sm="6"
+        md="4"
+      >
+        <garden-item v-bind:garden="garden" v-on:del-garden="deleteGardens" />
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
@@ -29,23 +38,24 @@ export default {
     'garden-item': GardenItem
   },
   mounted() {
-    console.log('Page is loaded!')
-    // load the garden from server
-    Api.get('/gardens')
-      .then(response => {
-        console.log(response)
-        this.gardens = response.data.gardens
-      })
-      .catch(error => {
-        this.gardens = []
-        console.log(error)
-        //  to do dispaly some error message istead of logging to consle
-      })
-      .then(() => {
-        console.log('this run every time after sucess or error.')
-      })
+    this.gettAllGardens()
   },
   methods: {
+    gettAllGardens() {
+      Api.get('/gardens')
+        .then(response => {
+          console.log(response)
+          this.gardens = response.data.gardens
+        })
+        .catch(error => {
+          this.gardens = []
+          console.log(error)
+          //  to do dispaly some error message istead of logging to consle
+        })
+        .then(() => {
+          console.log('this run every time after sucess or error.')
+        })
+    },
     getGardens(id) {
       console.log(`get garden with id ${id}`)
       Api.get(`/gardens/${id}`)
@@ -57,7 +67,7 @@ export default {
         .catch(error => {
           this.gardens = []
           console.log(error)
-        //  to do dispaly some error message istead of logging to consle
+          //  to do dispaly some error message istead of logging to consle
         })
         .then(() => {
           console.log('this run every time after sucess or error.')
@@ -73,12 +83,12 @@ export default {
         .catch(error => {
           this.gardens = []
           console.log(error)
-        //  to do dispaly some error message istead of logging to consle
+          //  to do dispaly some error message istead of logging to consle
         })
         .then(() => {
           console.log('this run every time after sucess or error.')
         })
-        // TODO: catch error
+      // TODO: catch error
     }
     //,
     /* deleteGardens()) {
@@ -100,11 +110,10 @@ export default {
   },
   data() {
     return {
-      plants: [],
+      gardens: [],
       text: ''
     }
   }
-
 }
 </script>
 

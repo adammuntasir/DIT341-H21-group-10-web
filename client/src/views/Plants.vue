@@ -57,7 +57,7 @@ export default {
     },
     addPlant() {
       console.log('line 60')
-      var newPlant = {
+      const newPlant = {
         name: 'banana',
         type: 'fruits',
         color: 'yellow',

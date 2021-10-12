@@ -1,4 +1,8 @@
 <template>
+<div>
+  <div>
+    <button type="button" v-on:click="addPlant">Add a plant!</button>
+  </div>
   <b-container fluid="md" class="myContainer">
     <!-- <b-row>
         <b-col cols="3" offset="1" offset-md="2">
@@ -18,6 +22,7 @@
       </b-col>
     </b-row>
   </b-container>
+  </div>
 </template>
 
 <script>

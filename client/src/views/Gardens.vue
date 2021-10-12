@@ -107,6 +107,46 @@ export default {
         .then(() => {
           console.log('this run every time after sucess or error.')
         })
+    },
+    addPlants(gardenId) {
+      console.log('line 112')
+      const newPlant = {
+        name: this.name,
+        type: this.type,
+        color: this.color,
+        season: this.season,
+        price: this.price,
+        has: gardenId
+      }
+      Api.post(`/gardens/${gardenId}/plants`, newPlant)
+        .then((response) => {
+          const index = this.gardens.findIndex(garden => garden._id === gardenId)
+          this.gardens[index].has.push(response.data)
+          console.log(this.gardens[index])
+          console.log(response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+          //  to do dispaly some error message istead of logging to consle
+        })
+        .then(() => {
+          console.log('this run every time after sucess or error.')
+        })
+    },
+    getPlants(gardenId) {
+      console.log('line 137')
+      Api.get(`/gardens/${gardenId}/plants`)
+        .then((response) => {
+          console.log(response.data)
+        })
+        .catch(error => {
+          this.gardens = []
+          console.log(error)
+          //  to do dispaly some error message istead of logging to consle
+        })
+        .then(() => {
+          console.log('this run every time after sucess or error.')
+        })
     }
   },
   data() {

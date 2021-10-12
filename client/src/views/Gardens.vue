@@ -7,14 +7,6 @@
     </div> -->
   <b-container fluid="md" class="myContainer">
     <b-row>
-      <b-col cols="3" offset="1" offset-md="2">
-        <b-form-input
-          v-model="text"
-          placeholder="Which plant do you need"
-        ></b-form-input>
-      </b-col>
-    </b-row>
-    <b-row>
       <b-col
         v-for="garden in gardens"
         v-bind:key="garden._id"
@@ -22,7 +14,10 @@
         sm="6"
         md="4"
       >
-        <garden-item v-bind:garden="garden" v-on:del-garden="deleteGardens" />
+        <div><garden-item v-bind:garden="garden" v-on:del-garden="deleteGardens" /></div>
+        <div>
+        <button type="button" v-on:click="postGardens">Add a garden!</button>
+        </div>
       </b-col>
     </b-row>
   </b-container>
@@ -89,6 +84,25 @@ export default {
           console.log('this run every time after sucess or error.')
         })
       // TODO: catch error
+    },
+    postGardens() {
+      console.log('line 94')
+      const newGarden = {
+        name: this.name,
+        location: this.location,
+        size: this.size
+      }
+      Api.post('/gardens/', newGarden)
+        .then((response) => {
+          this.gardens.push(response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+          //  to do dispaly some error message istead of logging to consle
+        })
+        .then(() => {
+          console.log('this run every time after sucess or error.')
+        })
     }
     //,
     /* deleteGardens()) {

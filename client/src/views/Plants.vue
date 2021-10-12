@@ -88,7 +88,7 @@ export default {
       })
       // TODO: catch error
     },
-    postPlant() {
+    addPlant() {
       console.log('line 60')
       const newPlant = {
         name: this.name,
@@ -142,38 +142,7 @@ export default {
         .then(() => {
           console.log('this run every time after sucess or error.')
         })
-    },
-    patchPlant(id) {
-      console.log(`patch plant with id ${id}`)
-      Api.patch(`/plants/${id}`)
-        .then(response => {
-          console.log(response.data)
-        })
-        .catch(error => {
-          this.plants = []
-          console.log(error)
-          //  to do dispaly some error message istead of logging to consle
-        })
-        .then(() => {
-          console.log('this run every time after sucess or error.')
-        })
-    },
-    putPlant(id) {
-      console.log(`put plant with id ${id}`)
-      Api.put(`/plants/${id}`)
-        .then(response => {
-          console.log(response.data)
-        })
-        .catch(error => {
-          this.plants = []
-          console.log(error)
-          //  to do dispaly some error message istead of logging to consle
-        })
-        .then(() => {
-          console.log('this run every time after sucess or error.')
-        })
     }
-
   },
   data() {
     return {

@@ -58,7 +58,7 @@ export default {
       // TODO: catch error
     },
     postGarden() {
-      console.log('line 60')
+      console.log('line 61')
       const newGarden = {
         name: this.name,
         size: this.size,
@@ -97,46 +97,6 @@ export default {
       console.log(`get garden with id ${id}`)
       Api.get(`/gardens/${id}`)
         .then(response => {
-          console.log(response.data)
-        })
-        .catch(error => {
-          this.gardens = []
-          console.log(error)
-          //  to do dispaly some error message istead of logging to consle
-        })
-        .then(() => {
-          console.log('this run every time after sucess or error.')
-        })
-    },
-    addPlants(gardenId) {
-      console.log('line 111')
-      const newPlant = {
-        name: this.name,
-        type: this.type,
-        color: this.color,
-        season: this.season,
-        price: this.price,
-        has: gardenId
-      }
-      Api.post(`/gardens/${gardenId}/plants`, newPlant)
-        .then((response) => {
-          const index = this.gardens.findIndex(garden => garden._id === gardenId)
-          this.gardens[index].has.push(response.data)
-          console.log(this.gardens[index])
-          console.log(response.data)
-        })
-        .catch((error) => {
-          console.log(error)
-          //  to do dispaly some error message istead of logging to consle
-        })
-        .then(() => {
-          console.log('this run every time after sucess or error.')
-        })
-    },
-    getPlants(gardenId) {
-      console.log('line 135')
-      Api.get(`/gardens/${gardenId}/plants`)
-        .then((response) => {
           console.log(response.data)
         })
         .catch(error => {

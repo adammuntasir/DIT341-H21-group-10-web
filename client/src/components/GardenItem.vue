@@ -1,9 +1,9 @@
 <template>
 <div>
-  <b-button variant="danger" v-on:click="$emit('del-garden', garden._id)">Delete</b-button>
-   <div>The {{ garden.name}}  </div>
-   <div class="detail">  located in  {{ garden.location}} </div>
-   <div class="more-info">Garden summary</div>
+   <div class="detail">  located   {{ garden.location}} </div>
+   <div class="detail">  size  {{ garden.size}} </div>
+   <b-button variant="danger" v-on:click="$emit('del-garden', garden._id)">Delete</b-button>
+
 </div>
 </template>
 

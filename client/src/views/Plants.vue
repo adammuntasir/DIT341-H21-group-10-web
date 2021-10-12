@@ -1,14 +1,9 @@
 <template>
 <div>
-<div><button type="button" v-on:click="addPlant">Add a plant!</button></div>
+<div><button type="button" v-on:click="postPlant">Add a plant!</button></div>
 <div><button type="button" v-on:click="deletePlants">delete all plants!</button></div>
 
   <b-container fluid="md" class="myContainer">
-    <!-- <b-row>
-        <b-col cols="3" offset="1" offset-md="2">
-           <b-form-input v-model="text" placeholder="Which plant do you need"></b-form-input>
-        </b-col>
-      </b-row> -->
     <b-row>
       <b-col
         v-for="plant in plants"
@@ -19,6 +14,8 @@
       >
         <plant-item v-bind:plant="plant" v-on:del-plant="deletePlant" />
          <div><button type="button" v-on:click="getPlant(plant._id)">get a plant id!</button></div>
+         <div><button type="button" v-on:click="putPlant(plant._id)">put a plant</button></div>
+         <div><button type="button" v-on:click="patchPlant(plant._id)">patch a plant</button></div>
       </b-col>
     </b-row>
   </b-container>
@@ -60,7 +57,7 @@ export default {
       })
       // TODO: catch error
     },
-    addPlant() {
+    postPlant() {
       console.log('line 60')
       const newPlant = {
         name: this.name,
@@ -114,7 +111,38 @@ export default {
         .then(() => {
           console.log('this run every time after sucess or error.')
         })
+    },
+    patchPlant(id) {
+      console.log(`patch plant with id ${id}`)
+      Api.patch(`/plants/${id}`)
+        .then(response => {
+          console.log(response.data)
+        })
+        .catch(error => {
+          this.plants = []
+          console.log(error)
+          //  to do dispaly some error message istead of logging to consle
+        })
+        .then(() => {
+          console.log('this run every time after sucess or error.')
+        })
+    },
+    putPlant(id) {
+      console.log(`put plant with id ${id}`)
+      Api.put(`/plants/${id}`)
+        .then(response => {
+          console.log(response.data)
+        })
+        .catch(error => {
+          this.plants = []
+          console.log(error)
+          //  to do dispaly some error message istead of logging to consle
+        })
+        .then(() => {
+          console.log('this run every time after sucess or error.')
+        })
     }
+
   },
   data() {
     return {

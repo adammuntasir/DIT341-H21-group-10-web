@@ -4,6 +4,17 @@
 <div><button type="button" v-on:click="deleteGardens">delete all gardens!</button></div>
 
   <b-container fluid="md" class="myContainer">
+    <div>
+      <div>
+            <h1 class="mt-2 mb-5">Add Garden!
+            </h1>
+            <add-garden-form />
+            <p class="mt-2">
+              add plants to garden?
+              <router-link to="/Plants">click here</router-link>
+            </p>
+      </div>
+    </div>
     <b-row>
       <b-col
         v-for="garden in gardens"
@@ -24,12 +35,14 @@
 
 <script>
 import GardenItem from '../components/GardenItem.vue'
+import AddGardenForm from '../forms/garden/AddGardenForm.vue'
 import { Api } from '@/Api'
 
 export default {
   name: 'gardens',
   components: {
-    'garden-item': GardenItem
+    'garden-item': GardenItem,
+    'add-garden-form': AddGardenForm
   },
   mounted() {
     console.log('Page is loaded!')

@@ -96,7 +96,7 @@ export default {
   },
   methods: {
     addPlant(name, type, color, season, price) {
-      var newPlant = {
+      const newPlant = {
         name: this.form.name,
         type: this.form.type,
         color: this.form.color,

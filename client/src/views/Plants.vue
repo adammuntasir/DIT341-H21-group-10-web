@@ -18,8 +18,7 @@
         md="4"
       >
         <plant-item v-bind:plant="plant" v-on:del-plant="deletePlant" />
-         <div><button type="button" v-on:click="getPlants(id)">get a plant id!</button></div>
-
+         <div><button type="button" v-on:click="getPlant(plant._id)">get a plant id!</button></div>
       </b-col>
     </b-row>
   </b-container>
@@ -86,7 +85,8 @@ export default {
       console.log('Delete plant')
       Api.delete('/plants/')
         .then(response => {
-          this.plants.remove(response.data)
+          console.log(response.data)
+          this.plants = []
         })
         .catch(error => {
           this.plants = []
@@ -98,13 +98,13 @@ export default {
         })
         // TODO: catch error
     },
-    getPlants(id) {
+    getPlant(id) {
       console.log(`get plant with id ${id}`)
       Api.get(`/plants/${id}`)
         .then(response => {
-          const id = this.plants.findId(plant => plant._id === id)
-          console.log(response)
-          this.plants = response.data.plant._id
+          // const id = this.plants.findId(plant => plant._id === id)
+          console.log(response.data)
+          //  this.plant._id
         })
         .catch(error => {
           this.plants = []

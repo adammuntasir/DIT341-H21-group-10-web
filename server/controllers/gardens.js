@@ -120,8 +120,9 @@ router.post("/api/gardens/:garden_id/plants", function (req, res, next) {
     var plant = new Plant(req.body);
     plant.save(function (error, plant) {
       garden.has.push(plant._id);
+      console.log(garden);
       garden.save();
-      res.status(201).json(garden);
+      res.status(201).json(plant);
     });
   });
 });

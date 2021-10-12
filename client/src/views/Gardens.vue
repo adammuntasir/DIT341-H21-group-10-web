@@ -104,23 +104,6 @@ export default {
           console.log('this run every time after sucess or error.')
         })
     }
-    //,
-    /* deleteGardens()) {
-      console.log('Delete garden')
-      Api.delete('/gardens/')
-        .then(response => {
-          this.gardens.splice(0, [].length)
-        })
-        .catch(error => {
-          this.gardens = []
-          console.log(error)
-        //  to do dispaly some error message istead of logging to consle
-        })
-        .then(() => {
-          console.log('this run every time after sucess or error.')
-        })
-        // TODO: catch error
-    } */
   },
   data() {
     return {

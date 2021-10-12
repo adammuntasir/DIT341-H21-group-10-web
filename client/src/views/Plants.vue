@@ -1,4 +1,8 @@
 <template>
+<div>
+<div><button type="button" v-on:click="addPlant">Add a plant!</button></div>
+<div><button type="button" v-on:click="deletePlants">delete all plants!</button></div>
+
   <b-container fluid="md" class="myContainer">
     <!-- <b-row>
         <b-col cols="3" offset="1" offset-md="2">
@@ -14,11 +18,12 @@
         md="4"
       >
         <plant-item v-bind:plant="plant" v-on:del-plant="deletePlant" />
-        <button type="button" v-on:click="addPlant">Add a plant!</button>
-         <button type="button" v-on:click="getplants(id)">get a plant!</button>
+         <div><button type="button" v-on:click="getPlants(id)">get a plant id!</button></div>
+
       </b-col>
     </b-row>
   </b-container>
+  </div>
 </template>
 
 <script>
@@ -77,12 +82,11 @@ export default {
           console.log('this run every time after sucess or error.')
         })
     },
-    //,
-    /* deletePlants()) {
+    deletePlants() {
       console.log('Delete plant')
       Api.delete('/plants/')
         .then(response => {
-          this.plants.splice(0, [].length)
+          this.plants.remove(response.data)
         })
         .catch(error => {
           this.plants = []
@@ -93,8 +97,8 @@ export default {
           console.log('this run every time after sucess or error.')
         })
         // TODO: catch error
-    } */
-    getplants(id) {
+    },
+    getPlants(id) {
       console.log(`get plant with id ${id}`)
       Api.get(`/plants/${id}`)
         .then(response => {

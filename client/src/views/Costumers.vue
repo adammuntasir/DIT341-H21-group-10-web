@@ -1,20 +1,48 @@
 <template>
-<b-container fluid="md" class="myContainer" >
-      <b-row>
-        <b-col v-for="costumer in costumers" v-bind:key="costumer._id" cols="12" sm="6" md="4">
-            <costumer-item v-bind:costumer="costumer" v-on:del-costumer="deleteCostumers"/>
-        </b-col>
-      </b-row>
-    </b-container>
+<div>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div><button type="button" v-on:click="postCostumer">Create a costumer!</button></div>
+<div><button type="button" v-on:click="deleteCostumers">delete all costumers!</button></div>
+
+  <b-container fluid="md" class="myContainer">
+    <div>
+      <div>
+            <h1 class="mt-2 mb-5">Create Costumer!
+            </h1>
+            <add-costumer-form />
+            <p class="mt-2">
+              Do you want to buy plants?
+              <router-link to="/Plants">click here</router-link>
+            </p>
+      </div>
+    </div>
+    <b-row>
+      <b-col
+        v-for="costumer in costumers"
+        v-bind:key="costumer._id"
+        cols="12"
+        sm="6"
+        md="4"
+      >
+        <costumer-item v-bind:costumer="costumer" v-on:del-costumer="deleteCostumer" />
+         <div><button type="button" v-on:click="getCostumer(costumer._id)">get a costumer id!</button></div>
+         <div><button type="button" v-on:click="addPlants(costumer._id)">add plant to costumer!</button></div>
+          <div><button type="button" v-on:click="getPlants(costumer._id)">Show Costumer's plant !</button></div>
+      </b-col>
+    </b-row>
+  </b-container>
+  </div>
 </template>
 
 <script>
 import CostumerItem from '../components/CostumerItem.vue'
+import AddCostumerForm from '../forms/costumer/AddCostumerForm.vue'
 import { Api } from '@/Api'
 export default {
   name: 'costumers',
   components: {
-    'costumer-item': CostumerItem
+    'costumer-item': CostumerItem,
+    'add-costumer-form': AddCostumerForm
   },
   mounted() {
     console.log('Page is loaded')
@@ -34,7 +62,103 @@ export default {
           const index = this.costumers.findIndex(costumer => costumer._id === id)
           this.costumers.splice(index, 1)
         })
+    },
+    postCostumer() {
+      console.log('line 61')
+      const newCostumer = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        streetNumber: this.streetNumber,
+        streetName: this.streetName,
+        city: this.city
+
+      }
+      Api.post('/costumers/', newCostumer)
+        .then((response) => {
+          this.costumers.push(response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+          //  to do dispaly some error message istead of logging to consle
+        })
+        .then(() => {
+          console.log('this run every time after sucess or error.')
+        })
+    },
+    deleteCostumers() {
+      console.log('Delete costumer')
+      Api.delete('/costumers/')
+        .then(response => {
+          console.log(response.data)
+          this.costumers = []
+        })
+        .catch(error => {
+          this.costumers = []
+          console.log(error)
+        //  to do dispaly some error message istead of logging to consle
+        })
+        .then(() => {
+          console.log('this run every time after sucess or error.')
+        })
+        // TODO: catch error
+    },
+    getCostumer(id) {
+      console.log(`get costumer with id ${id}`)
+      Api.get(`/costumers/${id}`)
+        .then(response => {
+          console.log(response.data)
+        })
+        .catch(error => {
+          this.costumers = []
+          console.log(error)
+          //  to do dispaly some error message istead of logging to consle
+        })
+        .then(() => {
+          console.log('this run every time after sucess or error.')
+        })
+    },
+    addPlants(costumerId) {
+      console.log('line 112')
+      const newPlant = {
+        name: this.name,
+        type: this.type,
+        color: this.color,
+        season: this.season,
+        price: this.price,
+        plantsBought: costumerId
+      }
+      Api.post(`/costumers/${costumerId}/plants`, newPlant)
+        .then((response) => {
+          const index = this.costumers.findIndex(costumer => costumer._id === costumerId)
+          this.costumers[index].plantsBought.push(response.data)
+          console.log(this.costumers[index])
+          console.log(response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+          //  to do dispaly some error message istead of logging to consle
+        })
+        .then(() => {
+          console.log('this run every time after sucess or error.')
+        })
+    },
+    getPlants(costumerId) {
+      console.log('line 137')
+      Api.get(`/costumers/${costumerId}/plants`)
+        .then((response) => {
+          console.log(response.data)
+        })
+        .catch(error => {
+          this.costumers = []
+          console.log(error)
+          //  to do dispaly some error message istead of logging to consle
+        })
+        .then(() => {
+          console.log('this run every time after sucess or error.')
+        })
     }
+
   },
   data() {
     return {

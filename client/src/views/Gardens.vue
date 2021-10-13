@@ -1,5 +1,6 @@
 <template>
 <div>
+// <meta name="viewport" content="width=device-width, initial-scale=1">
 <div><button type="button" v-on:click="postGarden">Add a garden!</button></div>
 <div><button type="button" v-on:click="deleteGardens">delete all gardens!</button></div>
 

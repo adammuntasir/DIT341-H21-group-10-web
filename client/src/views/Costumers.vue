@@ -46,7 +46,7 @@ export default {
   },
   mounted() {
     console.log('Page is loaded')
-    Api.get('/costumers').then(response => {
+    Api.get('/Costumer').then(response => {
       console.log(response)
       this.costumers = response.data.costumers
     }).catch(error => {
@@ -57,7 +57,7 @@ export default {
   methods: {
     deleteCostumer(id) {
       console.log('Delete costumer with id', id)
-      Api.delete(`/costumers/${id}`)
+      Api.delete(`/Costumer/${id}`)
         .then(response => {
           const index = this.costumers.findIndex(costumer => costumer._id === id)
           this.costumers.splice(index, 1)
@@ -74,7 +74,7 @@ export default {
         city: this.city
 
       }
-      Api.post('/costumers/', newCostumer)
+      Api.post('/Costumer/', newCostumer)
         .then((response) => {
           this.costumers.push(response.data)
         })
@@ -88,7 +88,7 @@ export default {
     },
     deleteCostumers() {
       console.log('Delete costumer')
-      Api.delete('/costumers/')
+      Api.delete('/Costumer/')
         .then(response => {
           console.log(response.data)
           this.costumers = []
@@ -105,7 +105,7 @@ export default {
     },
     getCostumer(id) {
       console.log(`get costumer with id ${id}`)
-      Api.get(`/costumers/${id}`)
+      Api.get(`/Costumer/${id}`)
         .then(response => {
           console.log(response.data)
         })
@@ -128,7 +128,7 @@ export default {
         price: this.price,
         plantsBought: costumerId
       }
-      Api.post(`/costumers/${costumerId}/plants`, newPlant)
+      Api.post(`/Costumer/${costumerId}/plants`, newPlant)
         .then((response) => {
           const index = this.costumers.findIndex(costumer => costumer._id === costumerId)
           this.costumers[index].plantsBought.push(response.data)
@@ -145,7 +145,7 @@ export default {
     },
     getPlants(costumerId) {
       console.log('line 137')
-      Api.get(`/costumers/${costumerId}/plants`)
+      Api.get(`/Costumer/${costumerId}/plants`)
         .then((response) => {
           console.log(response.data)
         })

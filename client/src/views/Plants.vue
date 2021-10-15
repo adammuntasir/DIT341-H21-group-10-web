@@ -19,8 +19,8 @@
             <add-plant-form />
 
             <p class="mt-2">
-              Already registered?
-              <router-link to="/sign-in">Sign in here</router-link>
+              Back to garden?
+              <router-link to="/Gardens">Click here</router-link>
             </p>
           </b-card-body>
         </b-card>

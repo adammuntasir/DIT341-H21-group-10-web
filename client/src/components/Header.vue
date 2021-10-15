@@ -9,7 +9,7 @@
           <b-nav-item router-link to="/gardens">Gardens</b-nav-item>
           <b-nav-item router-link to="/plants">Plants</b-nav-item>
           <b-nav-item router-link to="/costumers">Costumers</b-nav-item>
-          <b-nav-item router-link to="/farmer">Farmer</b-nav-item>
+          <b-nav-item router-link to="/farmers">Farmers</b-nav-item>
           <b-nav-item router-link to="/sign-in">Sign In</b-nav-item>
         </b-navbar-nav>
         <!-- Right aligned nav items -->

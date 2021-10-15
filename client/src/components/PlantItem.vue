@@ -1,7 +1,7 @@
 <template>
 <div>
   <b-button variant="danger" v-on:click="$emit('del-plant', plant._id)">Delete</b-button>
-   <div> {{ plant.name}}  </div>
+   <div calss="name">{{ plant.name}}  </div>
    <div class="detail">  price  {{ plant.price}} </div>
    <div class="more-info">Plant summary</div>
 </div>

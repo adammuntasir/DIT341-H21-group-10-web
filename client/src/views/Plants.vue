@@ -155,7 +155,7 @@ export default {
 
 <style>
 .myContainer {
-  background-color: rgb(179, 169, 216);
+  background-color: rgb(169, 216, 194);
   border: solid;
 }
 </style>

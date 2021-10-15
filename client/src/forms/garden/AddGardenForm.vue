@@ -1,10 +1,7 @@
 <template>
   <div>
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-      <b-form-group
-        id="input-group-1"
-        label="Name:"
-        label-for="input-1"
+    <b-form @submit="onSubmit" @reset="onReset" v-if="show"  >
+      <b-form-group id="input-group-1" label="Name:" label-for="input-1" class="mb-2 mr-sm-2 mb-sm-0"
       >
         <b-form-input
           id="input-1"
@@ -15,7 +12,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="location:" label-for="input-2">
+      <b-form-group id="input-group-2" label="location:" label-for="input-2" class="mb-2 mr-sm-2 mb-sm-0">
         <b-form-input
           id="input-2"
           v-model="form.location"
@@ -24,7 +21,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-3" label="size:" label-for="input-3">
+      <b-form-group id="input-group-3" label="size:" label-for="input-3" class="mb-2 mr-sm-2 mb-sm-0">
         <b-form-input
           id="input-3"
           v-model="form.size"
@@ -33,7 +30,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Create garden</b-button>
+      <b-button type="submit" variant="success">Confirm</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
   </div>

@@ -1,13 +1,24 @@
 <template>
 <div>
-// <meta name="viewport" content="width=device-width, initial-scale=1">
-<div><button type="button" v-on:click="postGarden">Add a garden!</button></div>
-<div><button type="button" v-on:click="deleteGardens">delete all gardens!</button></div>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<div>
+  <b-button-group>
+
+    <b-dropdown right text="Menu">
+      <b-dropdown-item v-on:click="postGarden">Add a garden</b-dropdown-item>
+      <b-dropdown-item v-on:click="deleteGardens">Delete all gardens</b-dropdown-item>
+      <b-dropdown-item v-on:click="getGarden(garden._id)">get a garden id</b-dropdown-item>
+      <b-dropdown-item v-on:click="addPlants(garden._id)">add plant to garden</b-dropdown-item>
+      <b-dropdown-item v-on:click="getPlants(garden._id)">get plant from garden</b-dropdown-item>
+      <b-dropdown-divider></b-dropdown-divider>
+    </b-dropdown>
+  </b-button-group>
+</div>
 
   <b-container fluid="md" class="myContainer">
     <div>
       <div>
-            <h1 class="mt-2 mb-5">Add Garden!
+            <h1 class="mb-2 mr-sm-2 mb-sm-0">Create a new Garden!
             </h1>
             <add-garden-form />
             <p class="mt-2">
@@ -25,9 +36,6 @@
         md="4"
       >
         <garden-item v-bind:garden="garden" v-on:del-garden="deleteGarden" />
-         <div><button type="button" v-on:click="getGarden(garden._id)">get a garden id!</button></div>
-         <div><button type="button" v-on:click="addPlants(garden._id)">add plant to garden!</button></div>
-          <div><button type="button" v-on:click="getPlants(garden._id)">get plant from garden!</button></div>
       </b-col>
     </b-row>
   </b-container>

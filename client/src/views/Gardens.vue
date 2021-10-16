@@ -1,44 +1,52 @@
 <template>
-<div>
- <meta name="viewport" content="width=device-width, initial-scale=1">
-<div>
-  <b-button-group>
-
-    <b-dropdown right text="Menu">
-      <b-dropdown-item v-on:click="postGarden">Add a garden</b-dropdown-item>
-      <b-dropdown-item v-on:click="deleteGardens">Delete all gardens</b-dropdown-item>
-      <b-dropdown-item v-on:click="getGarden(garden._id)">get a garden id</b-dropdown-item>
-      <b-dropdown-item v-on:click="addPlants(garden._id)">add plant to garden</b-dropdown-item>
-      <b-dropdown-item v-on:click="getPlants(garden._id)">get plant from garden</b-dropdown-item>
-      <b-dropdown-divider></b-dropdown-divider>
-    </b-dropdown>
-  </b-button-group>
-</div>
-
-  <b-container fluid="md" class="myContainer">
+  <div>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <div>
-      <div>
-            <h1 class="mb-2 mr-sm-2 mb-sm-0">Create a new Garden!
-            </h1>
-            <add-garden-form />
-            <p class="mt-2">
-              add plants to garden?
-              <router-link to="/Plants">click here</router-link>
-            </p>
-      </div>
+      <b-button-group>
+        <b-dropdown right text="Menu">
+          <b-dropdown-item v-on:click="postGarden"
+            >Create garden</b-dropdown-item
+          >
+          <b-dropdown-item v-on:click="deleteGardens"
+            >Delete all gardens</b-dropdown-item
+          >
+          <b-dropdown-item v-on:click="getGarden(garden._id)"
+            >get a garden id</b-dropdown-item
+          >
+          <b-dropdown-item v-on:click="addPlants(garden._id)"
+            >add plant to garden</b-dropdown-item
+          >
+          <b-dropdown-item v-on:click="getPlants(garden._id)"
+            >get plant from garden</b-dropdown-item
+          >
+          <b-dropdown-divider></b-dropdown-divider>
+        </b-dropdown>
+      </b-button-group>
     </div>
-    <b-row>
-      <b-col
-        v-for="garden in gardens"
-        v-bind:key="garden._id"
-        cols="12"
-        sm="6"
-        md="4"
-      >
-        <garden-item v-bind:garden="garden" v-on:del-garden="deleteGarden" />
-      </b-col>
-    </b-row>
-  </b-container>
+
+    <b-container fluid="md" class="myContainer">
+      <div>
+        <div>
+          <h1 class="mb-2 mr-sm-2 mb-sm-0">Create a new Garden!</h1>
+          <add-garden-form />
+          <p class="mt-2">
+            add plants to garden?
+            <router-link to="/Plants">click here</router-link>
+          </p>
+        </div>
+      </div>
+      <b-row>
+        <b-col
+          v-for="garden in gardens"
+          v-bind:key="garden._id"
+          cols="12"
+          sm="6"
+          md="4"
+        >
+          <garden-item v-bind:garden="garden" v-on:del-garden="deleteGarden" />
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -57,11 +65,11 @@ export default {
     console.log('Page is loaded!')
     // load the garden from server
     Api.get('/gardens')
-      .then((response) => {
+      .then(response => {
         console.log(response)
         this.gardens = response.data.gardens
       })
-      .catch((error) => {
+      .catch(error => {
         this.gardens = []
         console.log(error)
         //  to do dispaly some error message istead of logging to consle
@@ -73,8 +81,8 @@ export default {
   methods: {
     deleteGarden(id) {
       console.log(`Delete garden with id ${id}`)
-      Api.delete(`/gardens/${id}`).then((response) => {
-        const index = this.gardens.findIndex((garden) => garden._id === id)
+      Api.delete(`/gardens/${id}`).then(response => {
+        const index = this.gardens.findIndex(garden => garden._id === id)
         this.gardens.splice(index, 1)
       })
       // TODO: catch error
@@ -87,10 +95,10 @@ export default {
         location: this.location
       }
       Api.post('/gardens/', newGarden)
-        .then((response) => {
+        .then(response => {
           this.gardens.push(response.data)
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error)
           //  to do dispaly some error message istead of logging to consle
         })
@@ -108,12 +116,12 @@ export default {
         .catch(error => {
           this.gardens = []
           console.log(error)
-        //  to do dispaly some error message istead of logging to consle
+          //  to do dispaly some error message istead of logging to consle
         })
         .then(() => {
           console.log('this run every time after sucess or error.')
         })
-        // TODO: catch error
+      // TODO: catch error
     },
     getGarden(id) {
       console.log(`get garden with id ${id}`)
@@ -141,13 +149,15 @@ export default {
         has: gardenId
       }
       Api.post(`/gardens/${gardenId}/plants`, newPlant)
-        .then((response) => {
-          const index = this.gardens.findIndex(garden => garden._id === gardenId)
+        .then(response => {
+          const index = this.gardens.findIndex(
+            garden => garden._id === gardenId
+          )
           this.gardens[index].has.push(response.data)
           console.log(this.gardens[index])
           console.log(response.data)
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error)
           //  to do dispaly some error message istead of logging to consle
         })
@@ -158,7 +168,7 @@ export default {
     getPlants(gardenId) {
       console.log('line 137')
       Api.get(`/gardens/${gardenId}/plants`)
-        .then((response) => {
+        .then(response => {
           console.log(response.data)
         })
         .catch(error => {

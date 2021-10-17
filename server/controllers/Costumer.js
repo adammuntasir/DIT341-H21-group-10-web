@@ -49,15 +49,44 @@ router.delete("/:id", function (req, res, next) {
 });
 
 //get all costumers
-router.get("/", function (req, res, next) {
-  Costumer.find(function (err, costumers) {
-    if (err) {
-      return next(err);
-    } else {
-      res.status(200).json({ costumers: costumers });
-    }
-  });
+// router.get("/", function (req, res, next) {
+//   Costumer.find(function (err, costumers) {
+//     if (err) {
+//       return next(err);
+//     } else {
+//       res.status(200).json({ costumers: costumers });
+//     }
+//   });
+// });
+
+//pagination
+
+router.get("/", paginatedResults(), (req, res) => {
+  res.json(res.paginatedResults);
 });
+
+function paginatedResults() {
+  return async (req, res, next) => {
+
+    const page = parseInt(req.query.page);
+    const limit = parseInt(req.query.limit);
+    const skipIndex = (page - 1) * limit;
+    const results = {};
+
+    try {
+      results.results = await Costumer.find()
+        .sort({ _id: 1 })
+        .limit(limit)
+        .skip(skipIndex)
+        .exec();
+      res.paginatedResults = results;
+      next();
+    } catch (e) {
+      res.status(500).json({ message: "Error Occured" });
+    }
+  };
+}
+
 
 //find one costumer by ID
 router.get("/:id", function (req, res, next) {

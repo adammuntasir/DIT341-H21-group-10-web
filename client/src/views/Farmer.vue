@@ -10,10 +10,8 @@
     </div>
  -->
   <b-container fluid="md" class="myContainer">
-    <b-button type="button" v-on:click="postFarmers">Create farmer</b-button>
     <b-row>
       <b-col cols="3">
-        <b-button>Create New</b-button>
       </b-col>
     </b-row>
     <b-row>
@@ -69,24 +67,6 @@ export default {
         console.log('deleted successfully')
         this.farmers.splice()
       })
-    },
-    postFarmers() {
-      console.log('line 61')
-      const newFarmers = {
-        name: 'carlos',
-        email: 'abc@example.com'
-      }
-      Api.post('/farmers/', newFarmers)
-        .then(response => {
-          this.farmers.push(response.data)
-        })
-        .catch(error => {
-          console.log(error)
-          //  to do dispaly some error message istead of logging to consle
-        })
-        .then(() => {
-          console.log('this run every time after sucess or error.')
-        })
     }
   },
   data() {

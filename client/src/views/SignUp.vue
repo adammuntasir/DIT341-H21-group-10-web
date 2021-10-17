@@ -1,6 +1,16 @@
+<style scoped>
+div{
+  background-color: rgb(50, 217, 144)
+  }
+  p{
+    margin-bottom: 0px;
+    padding-top: 10px;
+  }
+
+</style>
+
 <template>
-    <div>
-        <h1>I'm In the signUp</h1>
+    <div id="body">
         <p>email adress</p>
         <input v-model="email" placeholder="ex. 1234@yahoo.com">
         <p>user name</p>
@@ -15,7 +25,7 @@
           <option>Costumer</option>
           <option>Farmer</option>
         </select>
-        <button @click="createUser"> Register</button>
+        <b-button @click="createUser"> Register</b-button>
     </div>
 </template>
 
@@ -23,15 +33,17 @@
 import { Api } from '@/Api'
 export default {
   methods: {
-    createUser(email, username) {
-      email = this.email
-      username = this.username
+    createUser() {
       let path = ''
-      console.log(email, this.username, this.password, this.type, this.confirmPass, this.selected)
-      if (this.selected === 'Costumer') {
-        path = '/costumers'
-      } else path = '/farmers'
-      Api.post(path, { email: `${this.email}`, name: `${this.username}` })
+      if (this.password === this.confirmPass) {
+        console.log(this.email, this.username, this.password, this.type, this.confirmPass, this.selected)
+        if (this.selected === 'Costumer') {
+          path = '/costumers'
+        } else path = '/farmers'
+        Api.post(path, { email: `${this.email}`, name: `${this.username}`, password: `${this.password}` })
+      } else {
+        alert('passwords do not match')
+      }
     }
   },
   data() {

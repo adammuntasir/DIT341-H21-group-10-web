@@ -2,11 +2,12 @@
   <div>
     <p>
       Name: {{ farmer.name }}<br />
-      Email: {{ farmer.email }}
     </p>
     <b-button variant="danger" v-on:click="$emit('del-user', farmer._id)"
       >delete Farmer</b-button
     >
+    <b-button v-on:click="$emit()"
+      >visit page</b-button>
   </div>
 </template>
 

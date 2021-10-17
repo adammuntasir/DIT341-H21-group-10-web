@@ -8,13 +8,19 @@
             >Create new costumer!</b-dropdown-item
           >
           <b-dropdown-item v-on:click="getCostumer(costumer._id)"
-            >Get the id!</b-dropdown-item
+            >Get one costumer!</b-dropdown-item
           >
           <b-dropdown-item v-on:click="deleteCostumer(costumer._id)"
             >Delete one costumer!</b-dropdown-item
           >
           <b-dropdown-item v-on:click="deleteCostumers()"
             >Delete all costumers!</b-dropdown-item
+          >
+          <b-dropdown-item v-on:click="putCostumer(costumer._id)"
+            >update costumer info.!</b-dropdown-item
+          >
+          <b-dropdown-item v-on:click="patchtCostumer(costumer._id)"
+            >change costumer info.</b-dropdown-item
           >
           <b-dropdown-item v-on:click="addPlants(costumer._id)"
             >buy plant!</b-dropdown-item
@@ -165,6 +171,25 @@ export default {
           console.log('this run every time after sucess or error.')
         })
     },
+    patchtCostumer(id) {
+      console.log(`Patch costumer with id ${id}`)
+      Api.patch(`/costumers/${id}`).then(response => {
+        const id = this.costumers.findById(costumer => costumer._id === id)
+        this.costumers = response.data.costumers
+      })
+      // TODO: catch error
+    },
+    putCostumer(id) {
+      console.log(`Put costumer with id ${id}`)
+      Api.put(`/costumers/${id}`).then(response => {
+        const id = this.costumers.findByIdAndUpdate(
+          costumer => costumer._id === id
+        )
+        this.costumers = response.data.costumers
+      })
+      // TODO: catch error
+    },
+
     addPlants(costumerId) {
       console.log('line 112')
       const newPlant = {

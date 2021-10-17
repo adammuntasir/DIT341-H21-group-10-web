@@ -23,7 +23,7 @@ export default {
 }
 </script>
 <style scoped>
-.nav-collapse{
-    color: rgb(219, 28, 194);
+.nav-collapse {
+  color: rgb(219, 28, 194);
 }
 </style>

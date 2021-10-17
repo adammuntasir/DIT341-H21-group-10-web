@@ -7,11 +7,20 @@
           <b-dropdown-item v-on:click="postGarden"
             >Create garden</b-dropdown-item
           >
+          <b-dropdown-item v-on:click="getGarden(garden._id)"
+            >Get one garden</b-dropdown-item
+          >
+          <b-dropdown-item v-on:click="deleteGarden(garden._id)"
+            >Delete one garden</b-dropdown-item
+          >
           <b-dropdown-item v-on:click="deleteGardens"
             >Delete all gardens</b-dropdown-item
           >
-          <b-dropdown-item v-on:click="getGarden(garden._id)"
-            >get a garden id</b-dropdown-item
+          <b-dropdown-item v-on:click="putGarden(garden._id)"
+            >update garden</b-dropdown-item
+          >
+          <b-dropdown-item v-on:click="patchtGarden(garden._id)"
+            >change a garden</b-dropdown-item
           >
           <b-dropdown-item v-on:click="addPlants(garden._id)"
             >add plant to garden</b-dropdown-item
@@ -138,6 +147,23 @@ export default {
           console.log('this run every time after sucess or error.')
         })
     },
+    patchGarden(id) {
+      console.log(`Patch garden with id ${id}`)
+      Api.patch(`/gardens/${id}`).then(response => {
+        const id = this.gardens.findById(garden => garden._id === id)
+        this.gardens = response.data.gardens
+      })
+      // TODO: catch error
+    },
+    putGardent(id) {
+      console.log(`Put garden with id ${id}`)
+      Api.put(`/gardens/${id}`).then(response => {
+        const id = this.gardens.findByIdAndUpdate(garden => garden._id === id)
+        this.gardens = response.data.gardens
+      })
+      // TODO: catch error
+    },
+
     addPlants(gardenId) {
       console.log('line 112')
       const newPlant = {

@@ -1,41 +1,12 @@
 <template>
-<<<<<<< HEAD
   <div>
-    <b-card
-      :title="name"
-      tag="article"
-      style="max-width: 20rem;"
-      class="mb-2"
+    <b-button variant="danger" v-on:click="$emit('del-plant', plant._id)"
+      >Delete</b-button
     >
-      <b-card-text>
-        <b-list-group id="list-group">
-      <b-list-group-item>
-        Type: &emsp;{{type}}
-      </b-list-group-item>
-      <b-list-group-item>
-        Color: &emsp;{{color}}
-      </b-list-group-item>
-      <b-list-group-item>
-        Season: &emsp; {{season}}
-      </b-list-group-item>
-      <b-list-group-item>
-        price: &emsp;{{price}}
-      </b-list-group-item>
-    </b-list-group>
-      </b-card-text>
-
-      <b-button variant="danger" v-on:click="$emit('del-plant', plant._id)">Delete</b-button>
-      <b-button variant="success" v-b-modal.modal-prevent-closing >Update</b-button>
-    </b-card>
+    <div calss="name">{{ plant.name }}</div>
+    <div class="detail">price {{ plant.price }}</div>
+    <div class="more-info">Plant summary</div>
   </div>
-=======
-<div>
-  <b-button variant="danger" v-on:click="$emit('del-plant', plant._id)">Delete</b-button>
-   <div calss="name">{{ plant.name}}  </div>
-   <div class="detail">  price  {{ plant.price}} </div>
-   <div class="more-info">Plant summary</div>
-</div>
->>>>>>> dc19ccd2cfb0838d704393875ae27063d53df6ef
 </template>
 
 <script>
@@ -58,6 +29,5 @@ export default {
 }
 #list-group {
   text-align: left;
-
 }
 </style>

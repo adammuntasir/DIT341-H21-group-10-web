@@ -6,25 +6,33 @@ div{
     margin-bottom: 0px;
     padding-top: 10px;
   }
+  #input-form{
+    width: 25%;
+    margin-left: 37%
+  }
+  .dropdown-form{
+    width: 25%;
+    margin-left: 3.35%;
+  }
 
 </style>
 
 <template>
     <div id="body">
         <p>email adress</p>
-        <input v-model="email" placeholder="ex. 1234@yahoo.com">
+        <b-form-input id="input-form" v-model="email" placeholder="ex. 1234@yahoo.com"></b-form-input>
         <p>user name</p>
-        <input v-model="username" placeholder="username">
+        <b-form-input id="input-form" v-model="username" placeholder="username"></b-form-input>
         <p>password</p>
-        <input v-model="password" placeholder="password">
+        <b-form-input id="input-form" v-model="password" placeholder="password"></b-form-input>
         <p>confirm password</p>
-        <input v-model="confirmPass" placeholder="confirm Password">
+        <b-form-input id="input-form" v-model="confirmPass" placeholder="confirm Password"></b-form-input>
         <p>Are you a gardener or a costumer</p>
-        <select v-model="selected">
+        <b-form-select class="dropdown-form" v-model="selected">
           <option disabled value="a">Please select one</option>
           <option>Costumer</option>
           <option>Farmer</option>
-        </select>
+        </b-form-select>
         <b-button @click="createUser"> Register</b-button>
     </div>
 </template>

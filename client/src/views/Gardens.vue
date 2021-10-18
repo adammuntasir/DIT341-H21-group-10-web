@@ -1,9 +1,8 @@
 <template>
   <div>
-    <h3>Gardens</h3>
     <crud-table
-      endpoint='/gardens'
-      :columns="['name', 'size', 'location', 'Action']"
+      endpoint="/gardens"
+      :columns="['name', 'size', 'location', '._id', 'Action']"
       :form-fields="{
         name: '',
         size: 0,

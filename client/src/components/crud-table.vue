@@ -4,7 +4,7 @@
       >Create</b-button
     >
     <b-button @click="deleteAllItems" class="mb-2" variant="danger" size="m"
-      >Delete all plants</b-button
+      >Delete all</b-button
     >
 
     <b-table striped hover :items="tableData" :fields="columns">
@@ -28,13 +28,12 @@
     <b-modal v-model="modalShow" :title="formTitle" hide-footer>
       <b-form @submit.prevent="save">
         <slot :formdata="editedItem" name="input-fields"> </slot>
+        <b-button type="submit" size="sm" variant="success">
+          Submit
+        </b-button>
 
         <b-button size="sm" variant="danger" @click="close">
           Cancel
-        </b-button>
-
-        <b-button type="submit" size="sm" variant="success">
-          Submit
         </b-button>
       </b-form>
     </b-modal>

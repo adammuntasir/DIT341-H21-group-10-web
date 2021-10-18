@@ -1,15 +1,15 @@
 <template>
   <div>
+    <b-card>
+      <b-card-body class = 'mx-2'>
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
       <b-form-group
         id="input-group-1"
         label="Name:"
         label-for="input-1"
-      >
-        <b-form-input
+      ><b-form-input
           id="input-1"
-          v-model="form.Name"
-          type="name"
+          v-model="form.name"
           placeholder="Plant Name"
           required
         ></b-form-input>
@@ -51,23 +51,14 @@
         ></b-form-input>
       </b-form-group>
 
-      <!-- <b-form-group id="input-group-6" v-slot="{ ariaDescribedby }">
-        <b-form-checkbox-group
-          v-model="form.checked"
-          id="checkboxes-4"
-          :aria-describedby="ariaDescribedby"
-        >
-          <b-form-checkbox value="me">Check me out</b-form-checkbox>
-          <b-form-checkbox value="that">Check that out</b-form-checkbox>
-        </b-form-checkbox-group>
-      </b-form-group> -->
-
       <b-button type="submit" variant="primary">Add plant</b-button>
       <!-- <b-button type="reset" variant="danger">Reset</b-button> -->
     </b-form>
     <!-- <b-card class="mt-3" header="Form Data Result">
       <pre class="m-0">{{ form }}</pre>
     </b-card> -->
+    </b-card-body>
+    </b-card>
   </div>
 </template>
 
@@ -81,8 +72,7 @@ export default {
         type: '',
         color: '',
         season: null,
-        price: 0,
-        checked: []
+        price: 0
       },
       season: [
         { text: 'Select season', value: null },
@@ -96,7 +86,7 @@ export default {
   },
   methods: {
     addPlant(name, type, color, season, price) {
-      var newPlant = {
+      const newPlant = {
         name: this.form.name,
         type: this.form.type,
         color: this.form.color,
@@ -119,20 +109,10 @@ export default {
       event.preventDefault()
       alert(JSON.stringify(this.form))
       this.addPlant()
-    },
-    onReset(event) {
-      event.preventDefault()
-      // Reset our form values
-      this.form.email = ''
-      this.form.name = ''
-      this.form.food = null
-      this.form.checked = []
-      // Trick to reset/clear native browser form validation state
-      this.show = false
-      this.$nextTick(() => {
-        this.show = true
-      })
     }
   }
 }
 </script>
+<style scoped>
+
+</style>

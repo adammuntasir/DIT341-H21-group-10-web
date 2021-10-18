@@ -28,7 +28,7 @@ router.get("/api/plants", function (req, res, next) {
       if (plants.length == 0) {
         return res.status(404).json({ message: "plants Not found" });
       }
-      res.status(200).json({ plants: plants });
+      res.status(200).json({ data: plants });
     });
 });
 

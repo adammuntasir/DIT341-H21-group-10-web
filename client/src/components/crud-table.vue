@@ -113,7 +113,7 @@ export default {
     }
   },
   mounted() {
-    Api(this.endpoint).then(response => (this.tableData = response.data.plants))
+    Api(this.endpoint).then(response => (this.tableData = response.data.data))
   }
 }
 </script>

@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div>
     <b-card
       :title="name"
@@ -27,6 +28,14 @@
       <b-button variant="success" v-b-modal.modal-prevent-closing >Update</b-button>
     </b-card>
   </div>
+=======
+<div>
+  <b-button variant="danger" v-on:click="$emit('del-plant', plant._id)">Delete</b-button>
+   <div calss="name">{{ plant.name}}  </div>
+   <div class="detail">  price  {{ plant.price}} </div>
+   <div class="more-info">Plant summary</div>
+</div>
+>>>>>>> dc19ccd2cfb0838d704393875ae27063d53df6ef
 </template>
 
 <script>

@@ -6,21 +6,21 @@
           <img src="../assets/MagicGardenLogo.png" class="logo" />
         </router-link>
       </b-col>
-      <b-col>
+      <!-- <b-col>
         <b-button variant="outline-success" @click="toTop" size="m">
           Go to top <b-icon-arrow-up-circle />
         </b-button>
-      </b-col>
+      </b-col> -->
     </b-row>
     <b-row class="mb-3">
-      <b-col>
+      <!-- <b-col>
         <router-link to="/about" class="mr-4">
           About
         </router-link>
         <router-link to="/contact" class="mr-4">
           Contact
         </router-link>
-      </b-col>
+      </b-col> -->
     </b-row>
   </b-container>
 </template>

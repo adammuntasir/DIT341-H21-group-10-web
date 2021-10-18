@@ -122,7 +122,7 @@ router.post("/api/gardens/:garden_id/plants", function (req, res, next) {
       garden.has.push(plant._id);
       console.log(garden);
       garden.save();
-      res.status(201).json(plant);
+      res.status(201).json(garden);
     });
   });
 });

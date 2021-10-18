@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <my-header/>
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/costumers">Costumers</router-link>|
       <router-link to="/gardens/id">Garden id</router-link>|
       <router-link to= "/gardens">Gardens</router-link>|
       <router-link to="/Plants">Plants</router-link>|
-      <router-link to="/ShoppingList">ShoppingList</router-link> |
       <router-link to="/About">About</router-link>|
       <router-link to="/sign-up">SignUp</router-link>
 
-    </div>
+    </div> -->
     <!-- Render the content of the current page view -->
     <router-view/>
     <my-footer/>
@@ -18,12 +18,14 @@
 </template>
 
 <script>
+import Header from '@/components/Header.vue'
 import MyFooter from '@/components/MyFooter.vue'
 
 export default {
   components: {
     // definig the name of the component
-    'my-footer': MyFooter
+    'my-footer': MyFooter,
+    'my-header': Header
   }
 }
 </script>

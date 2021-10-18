@@ -1,5 +1,6 @@
 <template>
   <div>
+<<<<<<< HEAD
     <h3>Plants</h3>
     <crud-table
       endpoint='/plants'
@@ -56,6 +57,56 @@
         </b-form-group>
       </template>
     </crud-table>
+=======
+    <div><button type="button" v-on:click="addPlant">Add a plant!</button></div>
+    <div>
+      <button type="button" v-on:click="deletePlants">
+        delete all plants!
+      </button>
+    </div>
+
+    <b-container fluid="md" class="myContainer">
+      <div>
+      <div class="sign-up-page add-white-space">
+        <b-card class="sign-up-form-container">
+          <b-card-body class="mx-2">
+            <h1 class="mt-2 mb-5">
+              Add Plant!
+            </h1>
+
+            <add-plant-form />
+
+            <p class="mt-2">
+              Back to garden?
+              <router-link to="/Gardens">Click here</router-link>
+            </p>
+          </b-card-body>
+        </b-card>
+      </div>
+    </div>
+      <!-- <b-row>
+        <b-col cols="3" offset="1" offset-md="2">
+           <b-form-input v-model="text" placeholder="Which plant do you need"></b-form-input>
+        </b-col>
+      </b-row> -->
+      <b-row>
+        <b-col
+          v-for="plant in plants"
+          v-bind:key="plant._id"
+          cols="12"
+          sm="6"
+          md="4"
+        >
+          <plant-item v-bind:plant="plant" v-on:del-plant="deletePlant" />
+          <div>
+            <button type="button" v-on:click="getPlant(plant._id)">
+              get a plant id!
+            </button>
+          </div>
+        </b-col>
+      </b-row>
+    </b-container>
+>>>>>>> dc19ccd2cfb0838d704393875ae27063d53df6ef
   </div>
 </template>
 
@@ -67,4 +118,13 @@ export default {
 }
 </script>
 
+<<<<<<< HEAD
 <style scoped></style>
+=======
+<style>
+.myContainer {
+  background-color: rgb(169, 216, 194);
+  border: solid;
+}
+</style>
+>>>>>>> dc19ccd2cfb0838d704393875ae27063d53df6ef

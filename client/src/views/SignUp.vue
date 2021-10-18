@@ -12,13 +12,12 @@ div{
   }
   .dropdown-form{
     width: 25%;
-    margin-left: 3.35%;
+    margin-left: -1%;
   }
-
 </style>
 
 <template>
-    <div id="body">
+    <div>
         <p>email adress</p>
         <b-form-input id="input-form" v-model="email" placeholder="ex. 1234@yahoo.com"></b-form-input>
         <p>user name</p>
@@ -33,7 +32,8 @@ div{
           <option>Costumer</option>
           <option>Farmer</option>
         </b-form-select>
-        <b-button @click="createUser"> Register</b-button>
+        <p></p>
+        <b-button @click="createUser" > Register</b-button>
     </div>
 </template>
 

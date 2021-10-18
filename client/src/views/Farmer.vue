@@ -9,6 +9,7 @@
     <b-button type="button" v-on:click="postFarmers">Create farmer</b-button>
     </div>
  -->
+ <div>
   <b-container fluid="md" class="myContainer">
     <b-row>
       <b-col cols="3">
@@ -22,10 +23,14 @@
         sm="6"
         md="4"
       >
-        <user-item v-bind:farmer="farmer" v-on:del-user="deleteFarmer" />
+        <user-item v-bind:farmer="farmer" v-on:del-user="deleteFarmer">
+        </user-item>
       </b-col>
     </b-row>
   </b-container>
+
+  </div>
+
 </template>
 
 <script>

@@ -1,13 +1,20 @@
+<style scoped>
+  #item-background{
+    background-color: rgb(75, 209, 75)
+  }
+</style>
+
 <template>
-  <div>
+  <div id="item-background">
     <p>
       Name: {{ farmer.name }}<br />
+      Email: {{farmer.email}}
     </p>
     <b-button variant="danger" v-on:click="$emit('del-user', farmer._id)"
       >delete Farmer</b-button
     >
     <b-button v-on:click="$emit()"
-      >visit page</b-button>
+      >add garden</b-button>
   </div>
 </template>
 

@@ -18,7 +18,7 @@
       <b-col
         v-for="farmer in farmers"
         v-bind:key="farmer.id"
-        cols="12"
+        cols="10"
         sm="6"
         md="4"
       >

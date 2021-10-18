@@ -103,7 +103,17 @@ router.post("/api/farmers/:farmer_id/gardens", function (req, res, next) {
       return res.status(404).json({ farmer_id: "farmer not found" });
     }
     var garden = new Garden(req.body);
-    garden.save(function (error, garden) {
+    garden.save(function (err, garden) {
+      if (err) {
+        if (
+          err.name === "MongoError" &&
+          err.code === 11000 &&
+          err.keyPattern.name === 1
+        ) {
+          return res.status(422).json({ mesage: "garden name already exists" });
+        }
+        return res.status(500).json(err)
+      }
       farmer.gardensOwned.push(garden._id);
       farmer.save();
       res.status(201).json(farmer);

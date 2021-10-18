@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import SignUp from './views/SignUp.vue'
-import SignIn from './views/SignIn'
 import Garden from './views/Garden.vue'
 import Gardens from './views/Gardens.vue'
 import Plants from './views/Plants.vue'
@@ -27,12 +26,6 @@ export default new Router({
       name: 'signUp',
       component: SignUp
     },
-    {
-      path: '/sign-in',
-      name: 'signIn',
-      component: SignIn
-    },
-
     {
       path: '/gardens/:id',
       name: 'garden',

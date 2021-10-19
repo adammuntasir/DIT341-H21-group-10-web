@@ -11,9 +11,9 @@
     >
       <!-- your form input fields in this slot-->
       <template v-slot:input-fields="{ formdata }">
-        <b-form-group id="input-group-2" label="Name:" label-for="input-2">
+        <b-form-group id="input-group-3" label="Name:" label-for="input-3">
           <b-form-input
-            id="input-2"
+            id="input-3"
             v-model="formdata.name"
             required
             placeholder="Enter name"
@@ -48,4 +48,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+div {
+  background-color: rgba(230, 201, 228, 0.842);
+}
+</style>

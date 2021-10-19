@@ -17,8 +17,12 @@ p {
     <b-button variant="danger" v-on:click="$emit('del-user', farmer._id)"
       >delete Farmer</b-button
     >
-
+    <b-button @click="showSecondModal">farms owned</b-button>
     <b-button id="show-btn" @click="showModal">add farm</b-button>
+
+    <b-modal ref="my-modal-2">
+
+    </b-modal>
 
     <b-modal ref="my-modal" hide-footer title="Using Component Methods">
       <div class="d-block text-center">
@@ -61,6 +65,17 @@ export default {
       // We pass the ID of the button that we want to return focus to
       // when the modal has hidden
       this.$refs['my-modal'].toggle('#toggle-btn')
+    },
+    showSecondModal() {
+      this.$refs['my-modal-2'].show()
+    },
+    hideSecondModal() {
+      this.$refs['my-modal-2'].hide()
+    },
+    toggleSecondModal() {
+      // We pass the ID of the button that we want to return focus to
+      // when the modal has hidden
+      this.$refs['my-modal-2'].toggle('#toggle-btn')
     },
     postGarden() {
       console.log(

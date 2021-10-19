@@ -4,7 +4,7 @@
       >Create</b-button
     >
     <b-button @click="deleteAllItems" class="mb-2" variant="danger" size="m"
-      >Delete all</b-button
+      >Delete all!</b-button
     >
 
     <b-table striped hover :items="tableData" :fields="columns">
@@ -12,15 +12,15 @@
         <b-button @click="editItem(data.item)" variant="primary" size="sm"
           >Edit</b-button
         >
+        <b-button @click="patchItem(data.item)" variant="primary" size="sm"
+          >Patch</b-button
+        >
         <b-button
           @click="deleteItem(data.item)"
           v-b-modal="'edit-modal'"
           variant="danger"
           size="sm"
           >Delete</b-button
-        >
-        <b-button @click="patchItem(data.item)" variant="primary" size="sm"
-          >Patch</b-button
         >
       </template>
     </b-table>
@@ -49,12 +49,24 @@ export default {
       editedItem: this.formFields,
       modalShow: false,
       editedIndex: -1,
+      indexOfItem: 0,
       tableData: []
     }
   },
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      let com = ''
+      switch (this.editedIndex) {
+        case -1:
+          com = 'New item'
+          break
+        case 0:
+          com = 'Edit item'
+          break
+        case 1:
+          com = 'Patch item'
+      }
+      return com
     }
   },
 
@@ -66,21 +78,26 @@ export default {
     },
     editItem(item) {
       this.modalShow = true
-      this.editedIndex = this.tableData.indexOf(item)
+      this.editedIndex = 0
+      this.indexOfItem = this.tableData.indexOf(item)
+
+      this.editedItem = Object.assign({}, item)
+    },
+    patchItem(item) {
+      this.modalShow = true
+      this.editedIndex = 1
+      this.indexOfItem = this.tableData.indexOf(item)
 
       this.editedItem = Object.assign({}, item)
     },
 
     deleteItem(item) {
       const index = this.tableData.indexOf(item)
-      confirm('Are you sure you want to delete this item?') &&
-        this.tableData.splice(index, 1)
-
+      this.tableData.splice(index, 1)
       Api.delete(this.endpoint + '/' + item._id)
     },
     deleteAllItems() {
-      confirm('Are you sure you want to delete all items?') &&
-        Api.delete(this.endpoint + '/')
+      Api.delete(this.endpoint + '/')
       this.tableData = []
     },
     close() {
@@ -91,24 +108,20 @@ export default {
       }, 300)
     },
     save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.tableData[this.editedIndex], this.editedItem)
+      if (this.editedIndex === 0) {
+        // edit
+        Object.assign(this.tableData[this.indexOfItem], this.editedItem)
         Api.put(this.endpoint + '/' + this.editedItem._id, this.editedItem)
-      } else {
+      } else if (this.editedIndex === -1) {
+        // new
         this.tableData.push(this.editedItem)
         Api.post(this.endpoint, this.editedItem)
+      } else if (this.editedIndex === 1) {
+        // patch
+        Object.assign(this.tableData[this.indexOfItem], this.editedItem)
+        Api.patch(this.endpoint + '/' + this.editedItem._id, this.editedItem)
       }
       this.close()
-    }
-  },
-  patchItem(item) {
-    this.modalShow = true
-    this.editedIndex = this.tableData.indexOf(item)
-
-    this.editedItem = Object.assign({}, item)
-    if (this.editedIndex > -1) {
-      Object.assign(this.tableData[this.editedIndex], this.editedItem)
-      Api.patch(this.endpoint + '/' + this.editedItem._id, this.editedItem)
     }
   },
   mounted() {

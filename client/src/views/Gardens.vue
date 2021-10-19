@@ -50,6 +50,6 @@ export default {
 
 <style scoped>
 div {
-  background-color: rgba(230, 201, 228, 0.842);
+  background-color: rgba(45, 165, 165, 0.02);
 }
 </style>

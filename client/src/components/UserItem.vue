@@ -19,11 +19,22 @@ p {
     >
     <b-button @click="showSecondModal">farms owned</b-button>
     <b-button id="show-btn" @click="showModal">add farm</b-button>
+    <b-button id="show-btn" @click="showThirdModal">info</b-button>
 
     <b-modal ref="my-modal-2">
       <p>this belongs to {{farmer.name}}</p>
       <div v-for="garden in gardens" v-bind:key="garden">
         <p>garden name: {{garden.name}}</p>
+      </div>
+    </b-modal>
+
+    <b-modal ref="my-modal-3">
+      <div>
+        <p>username: {{users.name}} </p>
+        <p>email: {{users.email}}</p>
+        <p>id: {{users._id}}</p>
+        <p>Id's of gardens owned:</p>
+          <p>{{users.gardensOwned}}</p>
       </div>
     </b-modal>
 
@@ -76,10 +87,23 @@ export default {
     hideSecondModal() {
       this.$refs['my-modal-2'].hide()
     },
+    showThirdModal() {
+      this.getOneFarmer()
+      this.$refs['my-modal-3'].show()
+    },
+    hideThirdModal() {
+      this.$refs['my-modal-3'].hide()
+    },
     getGarden() {
       Api.get(`/farmers/${this.farmer._id}/gardens`).then(response => {
         console.log(response)
         this.gardens = response.data.gardensOwned
+      })
+    },
+    getOneFarmer() {
+      Api.get(`/farmers/${this.farmer._id}`).then(response => {
+        console.log(response)
+        this.users = response.data
       })
     },
     postGarden() {
@@ -100,7 +124,7 @@ export default {
   },
   data() {
     return {
-
+      users: [],
       gardens: [],
       gardenName: '',
       gardenSize: '',

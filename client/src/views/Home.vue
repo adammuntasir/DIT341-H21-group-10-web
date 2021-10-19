@@ -1,7 +1,11 @@
 <template>
   <div>
     <b-jumbotron header="Magic Garden">
-      <img src="../assets/MagicGarden.png" class="Magic" />
+      <!--  <img src="../assets/MagicGarden.png" class="Magic" /> -->
+      <main class="container">
+        <div class="bg-image"></div>
+      </main>
+
       <!-- <b-button class="btn_message" variant="primary" v-on:click="getMessage()"
         >Get Message from Server</b-button -->
       <!-- >
@@ -50,5 +54,15 @@ export default {
 .jumbotron {
   color: rgb(17, 67, 231);
   font: initial;
+}
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.bg-image {
+  width: 100%;
+  padding-top: 42%;
+  background: url('../assets/MagicGarden.png') no-repeat center;
+  background-size: cover;
 }
 </style>

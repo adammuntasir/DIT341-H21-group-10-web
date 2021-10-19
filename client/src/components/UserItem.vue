@@ -17,8 +17,13 @@ p {
     <b-button variant="danger" v-on:click="$emit('del-user', farmer._id)"
       >delete Farmer</b-button
     >
-
+    <b-button @click="showSecondModal">farms owned</b-button>
     <b-button id="show-btn" @click="showModal">add farm</b-button>
+
+    <b-modal ref="my-modal-2">
+      <p>this belongs to {{farmer.name}}
+      </p>
+    </b-modal>
 
     <b-modal ref="my-modal" hide-footer title="Using Component Methods">
       <div class="d-block text-center">
@@ -62,6 +67,24 @@ export default {
       // when the modal has hidden
       this.$refs['my-modal'].toggle('#toggle-btn')
     },
+    showSecondModal() {
+      this.$refs['my-modal-2'].show()
+      this.getGarden()
+    },
+    hideSecondModal() {
+      this.$refs['my-modal-2'].hide()
+    },
+    getGarden() {
+      const gardenArr = this.farmer.gardensOwned
+      const gardenArrLength = this.farmer.gardensOwned.length
+      for (let i = 0; i < gardenArrLength; i++) {
+        let gardenId = ''
+        gardenId = gardenArr[i]
+
+        // Api.get(`/farmers/${this.farmer._id}/${gardenId}`)
+        console.log('garden id: ', gardenId)
+      }
+    },
     postGarden() {
       console.log(
         this.gardenName,
@@ -76,6 +99,13 @@ export default {
         location: `${this.gardenLocation}`
       })
       this.$refs['my-modal'].hide()
+    }
+  },
+  data() {
+    return {
+      gardenName: '',
+      gardenSize: '',
+      gardenLocation: ''
     }
   }
 }

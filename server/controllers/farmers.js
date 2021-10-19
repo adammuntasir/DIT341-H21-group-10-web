@@ -121,32 +121,21 @@ router.post("/api/farmers/:farmer_id/gardens", function (req, res, next) {
   });
 });
 
-//get garden using farmerID and gardenID
-router.get("api/farmers/:farmer_id/gardens/:garden_id", function (req, res, next) {
-  var farmerId = req.params.farmer_id;
-  Farmer.findById(farmerId, function (err, garden) {
-
-    if (err) {
-      return next(err);
-    }
-    if (garden == null) {
-      return res.status(404).json({ farmerId: "Garden not found" });
-    }
-    Garden.findById(req.params.garden_id, function (err, garden) {
+//get garden using farmerID
+router.get("/api/farmers/:id/gardens", function (req, res, next) {
+  var id = req.params.id;
+  Farmer.findById(id)
+    .populate({ path: "gardensOwned", model: Garden })
+    .exec(function (err, garden) {
       if (err) {
-        return next(err);
+        return res.status(500).json(err);
       }
       if (garden == null) {
-        return res.status(404).json({ message: "Plant not found" });
+        return res.status(404).json({ garden_id: "Garden not found" });
       }
-      // check if plant with garden_id was found or not
-      // if not send 404
-      // if yes, now find the plant with given plant_id
-      // if the plant was not found send 404
-      garden.has.includes(garden_id);
+
       res.status(200).json(garden);
     });
-  });
 });
 
 module.exports = router;

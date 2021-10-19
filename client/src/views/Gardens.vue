@@ -2,7 +2,7 @@
   <div>
     <crud-table
       endpoint="/gardens"
-      :columns="['name', 'size', 'location', 'Action']"
+      :columns="['name', 'size', 'location', '._id', 'Action']"
       :form-fields="{
         name: '',
         size: 0,

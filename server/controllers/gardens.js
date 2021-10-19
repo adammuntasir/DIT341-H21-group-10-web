@@ -140,7 +140,7 @@ router.get("/api/gardens/:garden_id/plants", function (req, res, next) {
         return res.status(404).json({ garden_id: "Garden not found" });
       }
 
-      res.status(200).json(garden);
+      res.status(200).json(garden.has);
     });
 });
 

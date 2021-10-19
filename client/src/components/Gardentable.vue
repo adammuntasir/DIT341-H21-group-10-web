@@ -15,6 +15,9 @@
         <b-button @click="patchItem(data.item)" variant="primary" size="sm"
           >Patch</b-button
         >
+        <b-button @click="get(data.item)" variant="secondary" size="sm"
+          >Details</b-button
+        >
         <b-button
           @click="deleteItem(data.item)"
           v-b-modal="'edit-modal'"
@@ -25,7 +28,7 @@
       </template>
     </b-table>
 
-    <b-modal v-model="modalShow" :title="formTitle" hide-footer>
+    <b-modal v-model="modalShowg" :title="formTitle" hide-footer>
       <b-form @submit.prevent="save">
         <slot :formdata="editedItem" name="input-fields"> </slot>
         <b-button type="submit" size="sm" variant="success">
@@ -37,17 +40,43 @@
         </b-button>
       </b-form>
     </b-modal>
+    <b-modal v-model="modalShowp" :title="formTitle" hide-footer>
+      <b-table
+        stacked="sm"
+        striped
+        hover
+        :items="tableDataplants"
+        :fields="columnsp"
+      >
+        <template #cell(action)="data">
+          <b-button @click="editItem(data.item)" variant="secondary" size="sm"
+            >Edit</b-button
+          >
+          <b-button @click="patchItem(data.item)" variant="primary" size="sm"
+            >Patch</b-button
+          >
+          <b-button
+            @click="deleteItem(data.item)"
+            v-b-modal="'edit-modal'"
+            variant="danger"
+            size="sm"
+            >Delete</b-button
+          >
+        </template>
+      </b-table>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import { Api } from '@/Api'
 export default {
-  props: ['endpoint', 'columns', 'formFields'],
+  props: ['endpoint', 'columns', 'formFields', 'columnsp'],
   data() {
     return {
       editedItem: this.formFields,
-      modalShow: false,
+      modalShowg: false,
+      modalShowp: false,
       editedIndex: -1,
       indexOfItem: 0,
       tableData: []
@@ -65,6 +94,9 @@ export default {
           break
         case 1:
           com = 'Patch item'
+          break
+        case 2:
+          com = 'Garden plants'
       }
       return com
     }
@@ -72,23 +104,34 @@ export default {
 
   methods: {
     createItem() {
-      this.modalShow = true
+      this.modalShowg = true
       this.editedItem = Object.assign({}, this.formFields)
       this.editedIndex = -1
     },
     editItem(item) {
-      this.modalShow = true
+      this.modalShowg = true
       this.editedIndex = 0
       this.indexOfItem = this.tableData.indexOf(item)
 
       this.editedItem = Object.assign({}, item)
     },
     patchItem(item) {
-      this.modalShow = true
+      this.modalShowg = true
       this.editedIndex = 1
       this.indexOfItem = this.tableData.indexOf(item)
 
       this.editedItem = Object.assign({}, item)
+    },
+    get(item) {
+      // getplants in specific garden
+      this.editedIndex = 2
+      this.indexOfItem = this.tableData.indexOf(item)
+
+      this.editedItem = Object.assign({}, item)
+      Api(this.endpoint + '/' + this.editedItem._id + '/plants').then(
+        response => (this.tableDataplants = response.data.data)
+      )
+      this.modalShowp = true
     },
 
     deleteItem(item) {

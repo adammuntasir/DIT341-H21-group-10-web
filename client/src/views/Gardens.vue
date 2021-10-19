@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import CrudTable from '../components/crud-table'
+import CrudTable from '../components/Gardentable'
 
 export default {
   components: { CrudTable }

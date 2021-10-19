@@ -21,8 +21,10 @@ p {
     <b-button id="show-btn" @click="showModal">add farm</b-button>
 
     <b-modal ref="my-modal-2">
-      <p>this belongs to {{farmer.name}}
-      </p>
+      <p>this belongs to {{farmer.name}}</p>
+      <div v-for="garden in gardens" v-bind:key="garden">
+        <p>garden name: {{garden.name}}</p>
+      </div>
     </b-modal>
 
     <b-modal ref="my-modal" hide-footer title="Using Component Methods">
@@ -68,22 +70,17 @@ export default {
       this.$refs['my-modal'].toggle('#toggle-btn')
     },
     showSecondModal() {
-      this.$refs['my-modal-2'].show()
       this.getGarden()
+      this.$refs['my-modal-2'].show()
     },
     hideSecondModal() {
       this.$refs['my-modal-2'].hide()
     },
     getGarden() {
-      const gardenArr = this.farmer.gardensOwned
-      const gardenArrLength = this.farmer.gardensOwned.length
-      for (let i = 0; i < gardenArrLength; i++) {
-        let gardenId = ''
-        gardenId = gardenArr[i]
-
-        // Api.get(`/farmers/${this.farmer._id}/${gardenId}`)
-        console.log('garden id: ', gardenId)
-      }
+      Api.get(`/farmers/${this.farmer._id}/gardens`).then(response => {
+        console.log(response)
+        this.gardens = response.data.gardensOwned
+      })
     },
     postGarden() {
       console.log(
@@ -103,6 +100,8 @@ export default {
   },
   data() {
     return {
+
+      gardens: [],
       gardenName: '',
       gardenSize: '',
       gardenLocation: ''

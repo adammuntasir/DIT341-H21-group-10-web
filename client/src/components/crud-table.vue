@@ -114,8 +114,10 @@ export default {
         Api.put(this.endpoint + '/' + this.editedItem._id, this.editedItem)
       } else if (this.editedIndex === -1) {
         // new
-        this.tableData.push(this.editedItem)
-        Api.post(this.endpoint, this.editedItem)
+        Api.post(this.endpoint, this.editedItem).then(result => {
+          console.log('result', result.data)
+          this.tableData.push(result.data)
+        })
       } else if (this.editedIndex === 1) {
         // patch
         Object.assign(this.tableData[this.indexOfItem], this.editedItem)
@@ -125,7 +127,10 @@ export default {
     }
   },
   mounted() {
-    Api(this.endpoint).then(response => (this.tableData = response.data.data))
+    Api(this.endpoint).then(response => {
+      console.log('mounted', response.data)
+      this.tableData = response.data.data
+    })
   }
 }
 </script>

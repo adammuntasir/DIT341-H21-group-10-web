@@ -2,7 +2,8 @@
   <div>
     <crud-table
       endpoint="/gardens"
-      :columns="['name', 'size', 'location', '._id', 'Action']"
+      :columns="['name', 'size', 'location', 'Action']"
+      :columnsp="['name', 'type', 'price', 'Action']"
       :form-fields="{
         name: '',
         size: 0,
@@ -41,7 +42,7 @@
 </template>
 
 <script>
-import CrudTable from '../components/crud-table'
+import CrudTable from '../components/Gardentable'
 
 export default {
   components: { CrudTable }

@@ -121,4 +121,21 @@ router.post("/api/farmers/:farmer_id/gardens", function (req, res, next) {
   });
 });
 
+//get garden using farmerID
+router.get("/api/farmers/:id/gardens", function (req, res, next) {
+  var id = req.params.id;
+  Farmer.findById(id)
+    .populate({ path: "gardensOwned", model: Garden })
+    .exec(function (err, garden) {
+      if (err) {
+        return res.status(500).json(err);
+      }
+      if (garden == null) {
+        return res.status(404).json({ garden_id: "Garden not found" });
+      }
+
+      res.status(200).json(garden);
+    });
+});
+
 module.exports = router;

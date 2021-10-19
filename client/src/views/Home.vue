@@ -1,7 +1,7 @@
 <template>
   <div>
-     <b-jumbotron header="Magic Garden" >
-       <img src="../assets/MagicGarden.png" class="Magic" />
+    <b-jumbotron header="Magic Garden">
+      <img src="../assets/MagicGarden.png" class="Magic" />
       <!-- <b-button class="btn_message" variant="primary" v-on:click="getMessage()"
         >Get Message from Server</b-button -->
       <!-- >
@@ -9,10 +9,10 @@
         Message from the server:<br />
         {{ message }}
       </p> -->
-    <!-- </b-jumbotron> -->
+      <!-- </b-jumbotron> -->
     </b-jumbotron>
     <div>
-      <my-footer />
+      <!-- <my-footer /> -->
     </div>
   </div>
 </template>
@@ -47,8 +47,8 @@ export default {
 .btn_message {
   margin-bottom: 1em;
 }
-.jumbotron{
+.jumbotron {
   color: rgb(17, 67, 231);
-  font:initial;
+  font: initial;
 }
 </style>

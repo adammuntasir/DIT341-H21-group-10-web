@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-button @click="createItem" class="mb-2" variant="primary" size="m"
+    <b-button @click="createItem" class="mb-2" variant="success" size="m"
       >Create</b-button
     >
     <b-button @click="deleteAllItems" class="mb-2" variant="danger" size="m"
@@ -9,7 +9,7 @@
 
     <b-table striped hover :items="tableData" :fields="columns">
       <template #cell(action)="data">
-        <b-button @click="editItem(data.item)" variant="primary" size="sm"
+        <b-button @click="editItem(data.item)" variant="secondary" size="sm"
           >Edit</b-button
         >
         <b-button @click="patchItem(data.item)" variant="primary" size="sm"

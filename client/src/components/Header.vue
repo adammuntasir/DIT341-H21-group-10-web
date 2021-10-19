@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="info">
+    <!-- <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand href="#">Magic Garden</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
@@ -10,8 +10,8 @@
           <b-nav-item router-link to="/plants">Plants</b-nav-item>
           <b-nav-item router-link to="/costumers">Costumers</b-nav-item>
           <b-nav-item router-link to="/farmers">Farmers</b-nav-item>
-          <b-nav-item router-link to="/sign-in">Sign In</b-nav-item>
-          <!-- <router-link to="/" custom v-slot="{ navigate }">
+          <b-nav-item router-link to="/sign-in">Sign In</b-nav-item> -->
+    <!-- <router-link to="/" custom v-slot="{ navigate }">
             <span @click="navigate" @keypress.enter="navigate" role="link"
               >Home</span
             >
@@ -36,10 +36,10 @@
               >Farmers</span
             >
           </router-link> -->
-        </b-navbar-nav>
-        <!-- Right aligned nav items -->
-      </b-collapse>
-    </b-navbar>
+    <!-- </b-navbar-nav> -->
+    <!-- Right aligned nav items -->
+    <!--  </b-collapse>
+    </b-navbar> -->
   </div>
 </template>
 <script>

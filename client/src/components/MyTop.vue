@@ -36,9 +36,9 @@
               >Farmers</span
             >
           </router-link>
-          <router-link to="/sign-in" custom v-slot="{ navigate }">
+          <router-link to="/sign-up" custom v-slot="{ navigate }">
             <span @click="navigate" @keypress.enter="navigate" role="link"
-              >Sign In</span
+              >Sign Up</span
             >
           </router-link>
         </b-navbar-nav>

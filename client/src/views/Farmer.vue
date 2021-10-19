@@ -55,7 +55,6 @@ export default {
       })
       .then(() => {
         console.log(
-          'this line should be runining regardeless of success or faiure'
         )
       })
   },

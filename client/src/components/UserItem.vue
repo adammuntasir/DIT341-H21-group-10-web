@@ -21,7 +21,8 @@ p {
     <b-button id="show-btn" @click="showModal">add farm</b-button>
 
     <b-modal ref="my-modal-2">
-
+      <p>this belongs to {{farmer.name}}
+      </p>
     </b-modal>
 
     <b-modal ref="my-modal" hide-footer title="Using Component Methods">
@@ -68,14 +69,21 @@ export default {
     },
     showSecondModal() {
       this.$refs['my-modal-2'].show()
+      this.getGarden()
     },
     hideSecondModal() {
       this.$refs['my-modal-2'].hide()
     },
-    toggleSecondModal() {
-      // We pass the ID of the button that we want to return focus to
-      // when the modal has hidden
-      this.$refs['my-modal-2'].toggle('#toggle-btn')
+    getGarden() {
+      const gardenArr = this.farmer.gardensOwned
+      const gardenArrLength = this.farmer.gardensOwned.length
+      for (let i = 0; i < gardenArrLength; i++) {
+        let gardenId = ''
+        gardenId = gardenArr[i]
+
+        // Api.get(`/farmers/${this.farmer._id}/${gardenId}`)
+        console.log('garden id: ', gardenId)
+      }
     },
     postGarden() {
       console.log(
@@ -91,6 +99,13 @@ export default {
         location: `${this.gardenLocation}`
       })
       this.$refs['my-modal'].hide()
+    }
+  },
+  data() {
+    return {
+      gardenName: '',
+      gardenSize: '',
+      gardenLocation: ''
     }
   }
 }
